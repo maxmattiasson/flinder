@@ -46,11 +46,18 @@ main {
   align-items: center;
   gap: 20px;
 }
-
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+  margin-bottom: 5vh;
+}
+header a {
+  margin-right: 10px;
+}
 h1 {
   text-align: center;
   padding: 10px;
-  margin-bottom: 5vh;
 }
 #h2-cont {
   text-align: center;
@@ -67,6 +74,18 @@ h1 {
   border-radius: 40px;
   color: var(--txt-color);
   cursor: pointer;
+}
+
+/* App */
+#title-cont {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 20px;
+}
+#info-cont {
+  display: flex;
+  gap: 10px;
 }
 /* Media queries */
 
