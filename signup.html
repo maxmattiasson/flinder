@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flinder</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form id="signup-form">
+      <h3>Sign up</h3>
+      <input type="email" id="signup-email" placeholder="Email" required />
+      <input
+        type="password"
+        id="signup-password"
+        placeholder="Password"
+        minlength="6"
+        required
+      />
+      <input
+        type="password"
+        id="signup-repeat"
+        placeholder="Repeat password"
+        minlength="6"
+        required
+      />
+
+      <menu>
+        <button type="submit">Register</button>
+        <button type="button" id="close-signup">Cancel</button>
+      </menu>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
