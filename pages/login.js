@@ -1,11 +1,13 @@
 import { createError } from "../utils/dom.js";
 import { supabase } from "../api/supabase.js";
+import { renderAuthState } from "../api/auth.js";
 
 export function initLogin() {
   const loginForm = document.getElementById("login-form");
 
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    console.log("hello");
 
     const email = document.getElementById("login-email").value;
     const password = document.getElementById("login-password").value;

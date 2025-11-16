@@ -1,15 +1,33 @@
-import { supabase } from "./supabase";
+import { supabase } from "./supabase.js";
 
-export async function renderAuthState() {
+export async function getAuthState() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  return user;
+}
+
+export async function renderAuthState(containerSelector = "#auth-state") {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+
+  const user = await getAuthState();
+
+  container.innerHTML = "";
+
+  const userCont = document.createElement("p");
 
   if (user) {
-    loggedInAs.textContent = `Logged in as: ${user.email}`;
-    logOutBtn.style.display = "block";
+    userCont.textContent = `Logged in as: ${user.email}`;
+    const logOutBtn = document.createElement("button");
+    logOutBtn.textContent = "Logout";
+    logOutBtn.addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      renderAuthState(containerSelector);
+    });
+    container.append(userCont, logOutBtn);
   } else {
-    loggedInAs.textContent = "Not logged in";
-    logOutBtn.style.display = "none";
+    userCont.textContent = "Not logged in";
+    container.append(userCont);
   }
 }
