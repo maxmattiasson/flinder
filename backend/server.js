@@ -20,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("its working");
 });
+const genresRoute = require("./routes/genres");
+app.use("/api/genres", genresRoute);
 
 const moviesRoute = require("./routes/movies");
 app.use("/api/movies", moviesRoute);

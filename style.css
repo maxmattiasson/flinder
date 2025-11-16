@@ -87,6 +87,30 @@ h1 {
   display: flex;
   gap: 10px;
 }
+.swipe-poster {
+  width: 60vw;
+  border-radius: 20px;
+  border: 2px solid honeydew;
+}
+#movie-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.poster-cont {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.poster-cont button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: lightgray;
+  cursor: pointer;
+}
 /* Media queries */
 
 @media (min-width: 600px) {

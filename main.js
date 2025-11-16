@@ -2,7 +2,7 @@ import { supabase } from "./api/supabase.js";
 import { initLogin } from "./pages/login.js";
 import { initSignup } from "./pages/signup.js";
 import { getAuthState, renderAuthState } from "./api/auth.js";
-import { fetchMovies, currentPage } from "./api/movies.js";
+import { fetchMovies } from "./api/movies.js";
 import { initApp } from "./pages/app.js";
 
 renderAuthState();
