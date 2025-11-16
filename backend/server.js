@@ -21,14 +21,8 @@ app.get("/", (req, res) => {
   res.send("its working");
 });
 
-app.get("/test-supabase", async (req, res) => {
-  const { data, error } = await supabase
-    .from("movie_votes")
-    .select("*")
-    .limit(1);
-
-  res.json({ data, error });
-});
+const moviesRoute = require("./routes/movies");
+app.use("/api/movies", moviesRoute);
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost${port}`);
