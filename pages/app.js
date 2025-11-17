@@ -1,4 +1,6 @@
 import { fetchMovies, fetchGenres } from "../api/movies.js";
+import { getAuthState } from "../api/auth.js";
+import { supabase } from "../api/supabase.js";
 
 let genreList = [];
 let currentPage = 1;
@@ -67,22 +69,55 @@ function renderButtons() {
   noBtn.textContent = "👎";
 
   yesBtn.addEventListener("click", handleYes);
-  //   noBtn.addEventListener("click", handleNo);
+  noBtn.addEventListener("click", handleNo);
 
   posterCont.append(yesBtn);
   posterCont.prepend(noBtn);
 }
 
-function handleYes() {
-  saveToDB();
+async function handleYes() {
+  let movie = movies[currentMovieIndex];
+  await saveToDB(movie, "yes");
+
+  renderNextMovie();
+  if (movies.length - currentMovieIndex <= preloadGap) {
+    loadNextPage();
+  }
+}
+async function handleNo() {
+  let movie = movies[currentMovieIndex];
+  await saveToDB(movie, "no");
+
   renderNextMovie();
   if (movies.length - currentMovieIndex <= preloadGap) {
     loadNextPage();
   }
 }
 
-function saveToDB() {
-  fakeDB.push(movies[currentMovieIndex]);
+async function saveToDB(movie, vote) {
+  const user = await getAuthState();
+  if (!user) {
+    fakeDB.push({
+      id: movie.id,
+      vote: vote,
+    });
+    return;
+  }
+  const result = await supabase.from("movie_votes").upsert(
+    {
+      user_id: user.id,
+      movie_id: movie.id,
+      vote: vote,
+      title: movie.title,
+      poster_url: movie.poster_path,
+    },
+    { onConflict: "user_id,movie_id" }
+  );
+  if (result.error) {
+    console.log("Error with storing to supabase" + result.error.message);
+    return;
+  }
+  console.log("Successfully saved to DB " + vote + " for " + movie.id);
 }
 
 async function loadNextPage() {
@@ -93,11 +128,4 @@ async function loadNextPage() {
 function renderNextMovie() {
   currentMovieIndex++;
   renderMovie();
-}
-function clear() {
-  genreList = [];
-  currentPage = 1;
-  movies = [];
-  currentMovieIndex = 0;
-  fakeDB = [];
 }
