@@ -5,6 +5,7 @@ let currentPage = 1;
 let movies = [];
 let currentMovieIndex = 0;
 let fakeDB = [];
+let preloadGap = 5;
 
 export async function initApp() {
   movies = await fetchMovies(currentPage);
@@ -75,7 +76,7 @@ function renderButtons() {
 function handleYes() {
   saveToDB();
   renderNextMovie();
-  if (currentMovieIndex > 15) {
+  if (movies.length - currentMovieIndex <= preloadGap) {
     loadNextPage();
   }
 }
