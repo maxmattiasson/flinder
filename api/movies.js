@@ -7,7 +7,6 @@ export async function fetchMovies(page) {
     console.log(err);
   }
 }
-// export function loadNextPage() {}
 export async function fetchGenres() {
   try {
     const res = await fetch(`http://localhost:4000/api/genres`);

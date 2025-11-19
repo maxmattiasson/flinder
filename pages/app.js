@@ -1,18 +1,16 @@
-import { fetchMovies, fetchGenres } from "../api/movies.js";
-import { getAuthState } from "../api/auth.js";
-import { supabase } from "../api/supabase.js";
+import { fetchGenres } from "../api/movies.js";
+import { MovieHub } from "../hub/MovieHub.js";
 
+let hub;
 let genreList = [];
-let currentPage = 1;
-let movies = [];
-let currentMovieIndex = 0;
-let fakeDB = [];
-let preloadGap = 5;
 
 export async function initApp() {
-  movies = await fetchMovies(currentPage);
   genreList = await fetchGenres();
-  console.log(movies);
+
+  hub = new MovieHub();
+
+  await hub.init();
+
   renderMovie();
 }
 
@@ -20,7 +18,9 @@ function renderMovie() {
   const path = "https://image.tmdb.org/t/p/w500/";
   const cont = document.querySelector("#movie-cont");
   cont.innerHTML = "";
-  const movie = movies[currentMovieIndex];
+
+  const movie = hub.getCurrentMovie();
+  if (!movie) return;
 
   const genreCont = document.createElement("div");
   genreCont.classList.add("genre-cont");
@@ -44,11 +44,7 @@ function renderMovie() {
   poster.src = path + movie.poster_path;
   poster.classList.add("swipe-poster");
 
-  const bgUrl = path + movie.backdrop_path;
-  document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${bgUrl})`;
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundPosition = "center";
-  document.body.style.backgroundRepeat = "no-repeat";
+  renderBackdrop(movie, path);
 
   const rating = document.createElement("p");
   rating.textContent = "⭐ " + movie.vote_average.toFixed(1);
@@ -68,64 +64,22 @@ function renderButtons() {
   yesBtn.textContent = "👍";
   noBtn.textContent = "👎";
 
-  yesBtn.addEventListener("click", handleYes);
-  noBtn.addEventListener("click", handleNo);
+  yesBtn.addEventListener("click", async () => {
+    await hub.handleSwipe("yes");
+    renderMovie();
+  });
+  noBtn.addEventListener("click", async () => {
+    await hub.handleSwipe("no");
+    renderMovie();
+  });
 
   posterCont.append(yesBtn);
   posterCont.prepend(noBtn);
 }
-
-async function handleYes() {
-  let movie = movies[currentMovieIndex];
-  await saveToDB(movie, "yes");
-
-  renderNextMovie();
-  if (movies.length - currentMovieIndex <= preloadGap) {
-    loadNextPage();
-  }
-}
-async function handleNo() {
-  let movie = movies[currentMovieIndex];
-  await saveToDB(movie, "no");
-
-  renderNextMovie();
-  if (movies.length - currentMovieIndex <= preloadGap) {
-    loadNextPage();
-  }
-}
-
-async function saveToDB(movie, vote) {
-  const user = await getAuthState();
-  if (!user) {
-    fakeDB.push({
-      id: movie.id,
-      vote: vote,
-    });
-    return;
-  }
-  const result = await supabase.from("movie_votes").upsert(
-    {
-      user_id: user.id,
-      movie_id: movie.id,
-      vote: vote,
-      title: movie.title,
-      poster_url: movie.poster_path,
-    },
-    { onConflict: "user_id,movie_id" }
-  );
-  if (result.error) {
-    console.log("Error with storing to supabase" + result.error.message);
-    return;
-  }
-  console.log("Successfully saved to DB " + vote + " for " + movie.id);
-}
-
-async function loadNextPage() {
-  currentPage++;
-  const next = await fetchMovies(currentPage);
-  movies = movies.concat(next);
-}
-function renderNextMovie() {
-  currentMovieIndex++;
-  renderMovie();
+function renderBackdrop(movie, path) {
+  const bgUrl = path + movie.backdrop_path;
+  document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${bgUrl})`;
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundRepeat = "no-repeat";
 }
