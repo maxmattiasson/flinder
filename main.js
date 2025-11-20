@@ -5,6 +5,7 @@ import { getAuthState, renderAuthState } from "./api/auth.js";
 import { fetchMovies } from "./api/movies.js";
 import { initApp } from "./pages/app.js";
 import { getActiveCategory, initCategories } from "./pages/categories.js";
+import { initProfile } from "./pages/profile.js";
 
 renderAuthState();
 
@@ -23,6 +24,8 @@ if (path.endsWith("login.html")) {
   document.querySelector("#categories-start").addEventListener("click", () => {
     window.location.href = "app.html";
   });
+} else if (path.endsWith("profile.html")) {
+  initProfile();
 }
 
 function initIndex() {

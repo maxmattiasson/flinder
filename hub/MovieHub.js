@@ -2,12 +2,11 @@ import { fetchMovies } from "../api/movies.js";
 import { getAuthState } from "../api/auth.js";
 import { supabase } from "../api/supabase.js";
 import { findCurrIndexHelper } from "../utils/findIndexHelper.js";
+import { GuestVotes, GuestProgress } from "../utils/localStorage.js";
 
 const PAGE_SIZE = 20;
 
 export class MovieHub {
-  static fakeDB = [];
-
   constructor(category = "popular") {
     this.preloadGap = 5;
     this.category = category;
@@ -20,16 +19,15 @@ export class MovieHub {
   async init() {
     const user = await getAuthState();
     if (!user) {
-      const raw = localStorage.getItem(`${this.category}`);
-      if (raw) {
-        const localProgress = JSON.parse(raw);
-        this.currentIndex = localProgress.currentIndex ?? 0;
-        this.currentPage = localProgress.currentPage ?? 1;
-        this.position = localProgress.position ?? 0;
-      }
-      this.movies = await fetchMovies(this.currentPage, this.category);
-      console.log(this.movies);
+      const localProgress =
+        GuestProgress.load().find((p) => p.category === this.category) ?? {};
 
+      this.currentIndex = localProgress.currentIndex ?? 0;
+      this.currentPage = localProgress.currentPage ?? 1;
+      this.position = localProgress.position ?? 0;
+
+      this.movies = await fetchMovies(this.currentPage, this.category);
+      console.log("Guest progress restored:", localProgress);
       return;
     }
 
@@ -81,10 +79,8 @@ export class MovieHub {
   async saveToDB(movie, vote) {
     const user = await getAuthState();
     if (!user) {
-      MovieHub.fakeDB.push({
-        id: movie.id,
-        vote: vote,
-      });
+      GuestVotes.add({ id: movie.id, vote });
+      console.log("GUEST → stored vote locally:", { id: movie.id, vote });
       return;
     }
     const result = await supabase.from("movie_votes").upsert(
@@ -112,7 +108,13 @@ export class MovieHub {
         position: this.position,
         category: this.category,
       };
-      localStorage.setItem(`${this.category}`, JSON.stringify(localPosition));
+
+      const all = GuestProgress.load();
+      const filtered = all.filter((p) => p.category !== this.category);
+      filtered.push(localPosition);
+      GuestProgress.save(filtered);
+
+      console.log("GUEST progress saved:", localPosition);
       return;
     }
     const { error } = await supabase.from("user_hub_progress").upsert(
