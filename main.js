@@ -6,6 +6,7 @@ import { fetchMovies } from "./api/movies.js";
 import { initApp } from "./pages/app.js";
 import { getActiveCategory, initCategories } from "./pages/categories.js";
 import { initProfile } from "./pages/profile.js";
+import { initLibrary } from "./pages/library.js";
 
 renderAuthState();
 
@@ -26,6 +27,8 @@ if (path.endsWith("login.html")) {
   });
 } else if (path.endsWith("profile.html")) {
   initProfile();
+} else if (path.endsWith("library.html")) {
+  initLibrary();
 }
 
 function initIndex() {
