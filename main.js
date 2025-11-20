@@ -4,6 +4,7 @@ import { initSignup } from "./pages/signup.js";
 import { getAuthState, renderAuthState } from "./api/auth.js";
 import { fetchMovies } from "./api/movies.js";
 import { initApp } from "./pages/app.js";
+import { getActiveCategory, initCategories } from "./pages/categories.js";
 
 renderAuthState();
 
@@ -17,6 +18,11 @@ if (path.endsWith("login.html")) {
   initIndex();
 } else if (path.endsWith("app.html")) {
   initApp();
+} else if (path.endsWith("categories.html")) {
+  initCategories();
+  document.querySelector("#categories-start").addEventListener("click", () => {
+    window.location.href = "app.html";
+  });
 }
 
 function initIndex() {

@@ -19,7 +19,6 @@ export class MovieHub {
 
   async init() {
     const user = await getAuthState();
-
     if (!user) {
       const raw = localStorage.getItem(`${this.category}`);
       if (raw) {
@@ -28,7 +27,9 @@ export class MovieHub {
         this.currentPage = localProgress.currentPage ?? 1;
         this.position = localProgress.position ?? 0;
       }
-      this.movies = await fetchMovies(this.currentPage);
+      this.movies = await fetchMovies(this.currentPage, this.category);
+      console.log(this.movies);
+
       return;
     }
 
@@ -44,7 +45,7 @@ export class MovieHub {
       this.currentPage = 1;
       this.currentIndex = 0;
       this.position = 0;
-      this.movies = await fetchMovies(this.currentPage);
+      this.movies = await fetchMovies(this.currentPage, this.category);
       return;
     }
     const pos = data?.position ?? 0;
@@ -53,7 +54,7 @@ export class MovieHub {
     this.currentPage = findCurrIndexHelper(pos, PAGE_SIZE).currPage;
     this.currentIndex = findCurrIndexHelper(pos, PAGE_SIZE).currentIndex;
 
-    this.movies = await fetchMovies(this.currentPage);
+    this.movies = await fetchMovies(this.currentPage, this.category);
   }
 
   getCurrentMovie() {
@@ -130,7 +131,7 @@ export class MovieHub {
   }
   async loadNextPage() {
     this.currentPage++;
-    const next = await fetchMovies(this.currentPage);
+    const next = await fetchMovies(this.currentPage, this.category);
     this.movies = this.movies.concat(next);
   }
 }

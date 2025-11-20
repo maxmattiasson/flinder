@@ -1,17 +1,20 @@
 import { fetchGenres } from "../api/movies.js";
 import { MovieHub } from "../hub/MovieHub.js";
+import { getActiveCategory } from "./categories.js";
 
 let hub;
 let genreList = [];
 
 export async function initApp() {
   genreList = await fetchGenres();
+  const category = getActiveCategory();
 
-  hub = new MovieHub();
+  hub = new MovieHub(category);
 
   await hub.init();
 
   renderMovie();
+  renderCategory(category);
 }
 
 function renderMovie() {
@@ -75,6 +78,11 @@ function renderButtons() {
 
   posterCont.append(yesBtn);
   posterCont.prepend(noBtn);
+}
+function renderCategory(category) {
+  const currCat = document.createElement("h2");
+  currCat.textContent = category;
+  document.querySelector("#movie-cont").prepend(currCat);
 }
 function renderBackdrop(movie, path) {
   const bgUrl = path + movie.backdrop_path;
