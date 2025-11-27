@@ -9,6 +9,7 @@ export async function initLibrary() {
     console.log(data);
     renderCount(data);
     renderLibrary(data);
+    addListeners();
     return;
   }
   const { data, error } = await supabase
@@ -24,6 +25,7 @@ export async function initLibrary() {
   console.log(data);
   renderCount(data);
   renderLibrary(data);
+  addListeners();
 }
 function renderLibrary(data) {
   const cont = document.querySelector("main");
@@ -38,6 +40,8 @@ function renderLibrary(data) {
 
     const title = document.createElement("h4");
     title.textContent = movie.title;
+
+    movie.dataset.movie_id = movie.movie_id;
 
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-library-card");
@@ -70,4 +74,14 @@ function sortByDate() {}
 
 function renderSort() {
   const button = document.createElement("button");
+}
+
+function addListeners() {
+  const deleteBtns = document.querySelectorAll("button");
+
+  for (let deleteBtn of deleteBtns) {
+    if (e.target.matches(".delete-library-card")) {
+      deleteBtn.addEventListener("click", () => deleteYes);
+    }
+  }
 }
