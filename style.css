@@ -197,7 +197,21 @@ h1 {
 }
 .delete-library-card {
   position: absolute;
-  top: -50px;
+  top: -5px;
+  right: -5px;
+  width: 28px;
+  height: 28px;
+  border: 2px solid white;
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+}
+
+.delete-library-card:hover {
+  cursor: pointer;
+  filter: brightness(1.2);
+  scale: 1.1;
+  background-color: rgb(29, 29, 29);
 }
 /* Media queries */
 
