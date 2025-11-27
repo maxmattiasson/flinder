@@ -81,14 +81,14 @@ export class MovieHub {
     if (!user) {
       const created_at = Date.now();
       GuestVotes.add({
-        id: movie.id,
+        movie_id: movie.id,
         vote,
         title: movie.title,
         poster_url: movie.poster_path,
         created_at,
       });
       console.log("GUEST → stored vote locally:", {
-        id: movie.id,
+        movie_id: movie.id,
         vote,
         title: movie.title,
         poster_url: movie.poster_path,

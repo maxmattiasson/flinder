@@ -1,6 +1,7 @@
 import { getAuthState } from "../api/auth.js";
 import { supabase } from "../api/supabase.js";
 import { GuestVotes } from "../utils/localStorage.js";
+import { getYesVotes, deleteYesVote } from "../api/votes.js";
 
 export async function initLibrary() {
   const user = await getAuthState();
@@ -41,7 +42,7 @@ function renderLibrary(data) {
     const title = document.createElement("h4");
     title.textContent = movie.title;
 
-    movie.dataset.movie_id = movie.movie_id;
+    card.dataset.movieId = movie.movie_id;
 
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-library-card");
@@ -59,6 +60,7 @@ function renderLibrary(data) {
   cont.append(movieCont);
 }
 function renderCount(data) {
+  // GÖR OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOM
   const cont = document.querySelector("main");
   const title = document.createElement("h3");
   const count = document.createElement("span");
@@ -77,11 +79,13 @@ function renderSort() {
 }
 
 function addListeners() {
-  const deleteBtns = document.querySelectorAll("button");
-
-  for (let deleteBtn of deleteBtns) {
+  const container = document.querySelector(".library-grid");
+  container.addEventListener("click", async (e) => {
     if (e.target.matches(".delete-library-card")) {
-      deleteBtn.addEventListener("click", () => deleteYes);
+      const card = e.target.closest(".library-card");
+      let movieId = card.dataset.movieId;
+      deleteYesVote(movieId);
+      card.remove();
     }
-  }
+  });
 }
