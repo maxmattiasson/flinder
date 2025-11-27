@@ -46,7 +46,7 @@ function renderLibrary(data) {
     const posterCont = document.createElement("div");
     const poster = document.createElement("img");
     poster.classList.add("library-poster");
-    poster.src = path + movie.posterUrl;
+    poster.src = path + movie.poster_url;
 
     posterCont.append(poster);
     card.append(title, deleteBtn, posterCont);

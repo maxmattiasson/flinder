@@ -84,14 +84,14 @@ export class MovieHub {
         id: movie.id,
         vote,
         title: movie.title,
-        poster_path: movie.poster_path,
+        poster_url: movie.poster_path,
         created_at,
       });
       console.log("GUEST → stored vote locally:", {
         id: movie.id,
         vote,
         title: movie.title,
-        posterUrl: movie.poster_path,
+        poster_url: movie.poster_path,
         created_at,
       });
       return;

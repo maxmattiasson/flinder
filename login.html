@@ -9,11 +9,18 @@
   <body>
     <form id="login-form">
       <h3>Login</h3>
-      <input type="email" id="login-email" placeholder="Email" required />
+      <input
+        type="email"
+        id="login-email"
+        placeholder="Email"
+        autocomplete="email"
+        required
+      />
       <input
         type="password"
         id="login-password"
         placeholder="Password"
+        autocomplete="current-password"
         required
         minlength="6"
       />
