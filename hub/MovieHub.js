@@ -79,8 +79,21 @@ export class MovieHub {
   async saveToDB(movie, vote) {
     const user = await getAuthState();
     if (!user) {
-      GuestVotes.add({ id: movie.id, vote });
-      console.log("GUEST → stored vote locally:", { id: movie.id, vote });
+      const created_at = Date.now();
+      GuestVotes.add({
+        id: movie.id,
+        vote,
+        title: movie.title,
+        posterUrl: movie.poster_path,
+        created_at,
+      });
+      console.log("GUEST → stored vote locally:", {
+        id: movie.id,
+        vote,
+        title: movie.title,
+        posterUrl: movie.poster_path,
+        created_at,
+      });
       return;
     }
     const result = await supabase.from("movie_votes").upsert(

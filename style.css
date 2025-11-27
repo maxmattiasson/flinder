@@ -165,7 +165,40 @@ h1 {
 #swipe-yes {
   background: linear-gradient(to left, rgba(0, 255, 0, 0.25), transparent);
 }
-
+.library-grid {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(20vw, 30vw));
+  gap: 10px;
+  width: 95vw;
+}
+.library-card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  border: 2px solid var(--gray-color);
+  padding: 10px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 20vw;
+    height: 30vw;
+  }
+  h4 {
+    text-align: center;
+    width: 20vw;
+    font-size: clamp(0.2rem, 0.6rem, 2rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+.delete-library-card {
+  position: absolute;
+  top: -50px;
+}
 /* Media queries */
 
 @media (min-width: 600px) {
