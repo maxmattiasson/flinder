@@ -2,7 +2,9 @@
   --bg-color: rgb(0, 0, 0);
   --txt-color: rgb(255, 255, 255);
   --red-color: rgb(71, 14, 14);
+  --gray-color: rgb(211, 211, 211);
 }
+
 /* General reset */
 * {
   margin: 0;
@@ -50,7 +52,6 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: baseline;
-  margin-bottom: 5vh;
 }
 header a {
   margin-right: 10px;
@@ -88,16 +89,16 @@ h1 {
   gap: 10px;
 }
 .swipe-poster {
-  width: 60vw;
+  width: 40vw;
   border-radius: 20px;
   border: 2px solid honeydew;
 }
-#movie-cont {
+/* #movie-cont {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+} */
 .poster-cont {
   display: flex;
   align-items: center;
@@ -111,6 +112,60 @@ h1 {
   background-color: lightgray;
   cursor: pointer;
 }
+
+/* Test my shit */
+
+#swipe-cont {
+  display: flex;
+  overflow-x: auto;
+  width: 100vw;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+#swipe-cont::-webkit-scrollbar {
+  display: none;
+}
+
+#movie-cont {
+  flex: 0 0 100vw;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  scroll-snap-align: center;
+  .desc-cont {
+    width: 50vw;
+  }
+}
+.genre-cont {
+  display: flex;
+  gap: 10px;
+  p {
+    background-color: var(--gray-color);
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: var(--bg-color);
+  }
+}
+
+#swipe-no,
+#swipe-yes {
+  flex: 0 0 120px;
+  height: 60%;
+  border: none;
+  font-size: 2rem;
+  background: transparent;
+  cursor: pointer;
+}
+#swipe-no {
+  background: linear-gradient(to right, rgba(255, 0, 0, 0.25), transparent);
+}
+#swipe-yes {
+  background: linear-gradient(to left, rgba(0, 255, 0, 0.25), transparent);
+}
+
 /* Media queries */
 
 @media (min-width: 600px) {

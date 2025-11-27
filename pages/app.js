@@ -53,6 +53,7 @@ function renderMovie() {
   rating.textContent = "⭐ " + movie.vote_average.toFixed(1);
 
   const desc = document.createElement("p");
+  desc.classList.add("desc-cont");
   desc.textContent = movie.overview;
 
   posterCont.append(poster);
