@@ -213,6 +213,15 @@ h1 {
   scale: 1.1;
   background-color: rgb(29, 29, 29);
 }
+.hidden {
+  display: none;
+}
+.modal {
+  background-color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  height: 95vh;
+  width: 95vw;
+}
 /* Media queries */
 
 @media (min-width: 600px) {

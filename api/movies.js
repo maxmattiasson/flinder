@@ -35,7 +35,7 @@ export async function fetchMovieFull(movie_id) {
     const res = await fetch(`http://localhost:4000/api/movieFull/${movie_id}`);
     if (!res.ok) throw new Error("Could not fetch movie details", res.status);
     const data = await res.json();
-    return data;
+    return data.movie;
   } catch (err) {
     console.log("Caught error movie details", err);
   }

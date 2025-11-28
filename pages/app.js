@@ -19,8 +19,7 @@ export async function initApp() {
 
   renderMovie();
   renderCategory(category);
-  const test = await fetchMovieFull(372058);
-  console.log(test);
+  loadListeners();
 }
 
 function renderMovie() {
@@ -49,6 +48,8 @@ function renderMovie() {
 
   const posterCont = document.createElement("div");
   posterCont.classList.add("poster-cont");
+  posterCont.dataset.id = movie.id;
+
   const poster = document.createElement("img");
   poster.src = path + movie.poster_path;
   poster.classList.add("swipe-poster");
@@ -97,4 +98,40 @@ function renderBackdrop(movie, path) {
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundPosition = "center";
   document.body.style.backgroundRepeat = "no-repeat";
+}
+function loadListeners() {
+  const container = document.querySelector("#movie-cont");
+
+  container.addEventListener("click", (e) => {
+    if (e.target.closest(".poster-cont")) {
+      const card = e.target.closest(".poster-cont");
+      if (!card) return;
+      console.log("click");
+      document.getElementById("movie-modal").classList.remove("hidden");
+      renderModal(card.dataset.id);
+    }
+  });
+}
+async function renderModal(movieId) {
+  const $ = (id) => document.getElementById(id);
+  const DOM = {
+    trailer: $("modal-trailer"),
+    poster: $("modal-poster"),
+    title: $("modal-title"),
+    release: $("modal-year"),
+    overview: $("modal-desc"),
+    genres: $("modal-genres"),
+    actors: $("modal-actors"),
+    runtime: $("modal-runtime"),
+    stream: $("modal-stream"),
+    rating: $("modal-rating"),
+    tagline: $("modal-tagline"),
+    voteCount: $("modal-vote-count"),
+    backdrop: $("modal-backdrop"),
+  };
+  const movie = await fetchMovieFull(movieId);
+  console.log(movie);
+  DOM.overview.textContent = movie.overview;
+  DOM.title.textContent = movie.title;
+  DOM.trailer.src = `${movie.video}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0`;
 }
