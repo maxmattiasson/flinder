@@ -9,8 +9,8 @@ export function initLogin() {
     e.preventDefault();
     console.log("hello");
 
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value.trim();
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,

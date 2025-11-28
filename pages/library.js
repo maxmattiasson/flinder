@@ -59,17 +59,21 @@ function renderLibrary(data) {
   });
   cont.append(movieCont);
 }
-function renderCount(data) {
-  // GÖR OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOM
-  const cont = document.querySelector("main");
-  const title = document.createElement("h3");
+function renderCount(dataOptional) {
+  const cont = document.querySelector("#library-h3");
+  cont.innerHTML = "";
+  cont.textContent = "Library";
   const count = document.createElement("span");
 
-  title.textContent = "Library";
-  count.textContent = ` (${data.length})`;
+  if (dataOptional === undefined) {
+    const cards = document.querySelectorAll(".library-card");
+    count.textContent = ` (${cards.length})`;
+  } else {
+    count.textContent = ` (${dataOptional.length})`;
+    console.log(dataOptional);
+  }
 
-  title.append(count);
-  cont.append(title);
+  cont.append(count);
 }
 
 function sortByDate() {}
@@ -86,6 +90,7 @@ function addListeners() {
       let movieId = card.dataset.movieId;
       deleteYesVote(movieId);
       card.remove();
+      renderCount();
     }
   });
 }
