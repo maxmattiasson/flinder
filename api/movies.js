@@ -18,6 +18,28 @@ export async function fetchMovies(page, category) {
     console.log(err);
   }
 }
+export async function fetchMovieDetails(movie_id) {
+  try {
+    const res = await fetch(
+      `http://localhost:4000/api/movieDetails/${movie_id}`
+    );
+    if (!res.ok) throw new Error("Could not fetch movie details", res.status);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log("Caught error movie details", err);
+  }
+}
+export async function fetchMovieFull(movie_id) {
+  try {
+    const res = await fetch(`http://localhost:4000/api/movieFull/${movie_id}`);
+    if (!res.ok) throw new Error("Could not fetch movie details", res.status);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log("Caught error movie details", err);
+  }
+}
 export async function fetchGenres() {
   try {
     const res = await fetch(`http://localhost:4000/api/genres`);

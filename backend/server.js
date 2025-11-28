@@ -29,6 +29,12 @@ app.use("/api/movies", moviesRoute);
 const topRatedRoute = require("./routes/topRated");
 app.use("/api/topRated", topRatedRoute);
 
+const movieDetailsRoute = require("./routes/movieDetails");
+app.use("/api/movieDetails", movieDetailsRoute);
+
+const movieFullRoute = require("./routes/movieFull");
+app.use("/api/movieFull", movieFullRoute);
+
 app.listen(port, () => {
   console.log(`Listening at http://localhost${port}`);
 });

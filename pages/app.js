@@ -1,4 +1,8 @@
-import { fetchGenres } from "../api/movies.js";
+import {
+  fetchGenres,
+  fetchMovieDetails,
+  fetchMovieFull,
+} from "../api/movies.js";
 import { MovieHub } from "../hub/MovieHub.js";
 import { getActiveCategory } from "./categories.js";
 
@@ -15,6 +19,8 @@ export async function initApp() {
 
   renderMovie();
   renderCategory(category);
+  const test = await fetchMovieFull(372058);
+  console.log(test);
 }
 
 function renderMovie() {
@@ -52,12 +58,12 @@ function renderMovie() {
   const rating = document.createElement("p");
   rating.textContent = "⭐ " + movie.vote_average.toFixed(1);
 
-  const desc = document.createElement("p");
-  desc.classList.add("desc-cont");
-  desc.textContent = movie.overview;
+  // const desc = document.createElement("p");
+  // desc.classList.add("desc-cont");
+  // desc.textContent = movie.overview;
 
   posterCont.append(poster);
-  cont.append(title, release, posterCont, desc, genreCont, rating);
+  cont.append(title, release, posterCont, genreCont, rating);
   renderButtons();
 }
 function renderButtons() {
