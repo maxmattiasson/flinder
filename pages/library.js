@@ -39,8 +39,8 @@ function renderLibrary(data) {
     const card = document.createElement("div");
     card.classList.add("library-card");
 
-    const title = document.createElement("h4");
-    title.textContent = movie.title;
+    // const title = document.createElement("h4");
+    // title.textContent = movie.title;
 
     card.dataset.movieId = movie.movie_id;
 
@@ -54,7 +54,7 @@ function renderLibrary(data) {
     poster.src = path + movie.poster_url;
 
     posterCont.append(poster);
-    card.append(title, deleteBtn, posterCont);
+    card.append(deleteBtn, posterCont);
     movieCont.append(card);
   });
   cont.append(movieCont);
