@@ -2,12 +2,14 @@ import { getAuthState } from "../api/auth.js";
 import { supabase } from "../api/supabase.js";
 import { getYesVotes } from "../api/votes.js";
 
+let infoId;
+
 export async function initProfile() {
   const friendCode = await getFriendCode();
   renderProfile(friendCode);
   const friendCodes = await getFriendsForUI();
   renderFriendsList(friendCodes);
-  renderDisplayName();
+  await renderDisplayName();
   addListeners();
 
   document.querySelector("#reset-storage").addEventListener("click", () => {
@@ -55,8 +57,9 @@ async function getFriendCode() {
     ])
     .select("friend_code")
     .single();
-  if (insertError) {
+  if (insertError || !insertData) {
     console.log("error posting friend code", insertError);
+    return null;
   }
   return insertData.friend_code;
 }
@@ -72,7 +75,6 @@ async function handleAddFriend() {
   const infoField = document.getElementById("add-info");
   const inputField = document.getElementById("add-input");
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
-  let infoId;
   clearTimeout(infoId);
 
   const input = inputField.value.toUpperCase().trim();
@@ -139,6 +141,9 @@ async function handleAddFriend() {
   infoField.textContent = "Friend added!";
   inputField.value = "";
   infoId = setTimeout(() => (infoField.textContent = ""), 5000);
+
+  const friends = await getFriendsForUI();
+  renderFriendsList(friends);
 }
 
 function addListeners() {
@@ -167,6 +172,7 @@ function addListeners() {
       document.getElementById("name-change-info").textContent = "";
     });
   // Handle name change submit
+  const dialog = document.getElementById("change-name");
   document
     .getElementById("change-name-form")
     .addEventListener("submit", async (e) => {
@@ -182,6 +188,7 @@ function addListeners() {
       }
       document.getElementById("name-change-info").textContent = "";
       await setDisplayName(input);
+      dialog.close();
     });
 }
 
@@ -195,14 +202,18 @@ async function getFriendsForUI() {
     .eq("owner_id", user.id);
   if (error) {
     console.log("Error with getting friendslist from supabase", error);
+    return [];
   }
-  const friendIDs = data.map((el) => el.friend_id);
+  const friendIDs = (data ?? []).map((el) => el.friend_id);
+  if (!friendIDs.length) return [];
 
   const { data: friendsCode, error: friendError } = await supabase
     .from("user_profiles")
     .select("friend_code, display_name")
     .in("user_id", friendIDs);
-
+  if (error) {
+    console.log("error with getting friendscode", error);
+  }
   return friendsCode;
 }
 async function renderFriendsList(friendCodes) {
@@ -210,7 +221,13 @@ async function renderFriendsList(friendCodes) {
 
   container.textContent = "Friendslist";
 
-  [...friendCodes].forEach((friend) => {
+  const list = friendCodes ?? [];
+  if (!list.length) {
+    container.textContent = "No friends yet";
+    return;
+  }
+
+  [...list].forEach((friend) => {
     const friendCont = document.createElement("div");
     if (friend.display_name === null && friend.friend_code === null) {
       friendCont.textContent = "Unknown";
@@ -233,8 +250,9 @@ async function getDisplayName() {
     .eq("user_id", user.id)
     .maybeSingle();
 
-  if (error) {
+  if (error || !data) {
     console.log("Error getting display name ", error);
+    return null;
   }
   return data.display_name;
 }
@@ -245,24 +263,24 @@ async function setDisplayName(input) {
 
   const { data, error } = await supabase
     .from("user_profiles")
-    .upsert(
-      { user_id: user.id, display_name: input },
-      { onConflict: "user_id" }
-    )
-    .select()
-    .single();
+    .update({ display_name: input })
+    .eq("user_id", user.id);
+
   if (error) {
-    console.log("Error with upsert name", error);
+    console.log("Error with update name", error);
     return;
   }
-  await renderDisplayName(input);
+  await renderDisplayName();
 }
 
-async function renderDisplayName(input) {
-  const displayName = await getDisplayName();
+async function renderDisplayName() {
   const nameElement = document.getElementById("display-name");
 
+  const displayName = await getDisplayName();
+
   if (displayName === null) {
-    nameElement.textContent = "Name";
+    nameElement.textContent = "Your name";
+  } else {
+    nameElement.textContent = displayName;
   }
 }
