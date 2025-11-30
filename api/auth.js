@@ -18,7 +18,6 @@ export async function renderAuthState(containerSelector = "#auth-state") {
   const userCont = document.createElement("p");
 
   if (user) {
-    console.log(user);
     userCont.textContent = `Logged in as: ${user.email}`;
     const logOutBtn = document.createElement("button");
     logOutBtn.textContent = "Logout";

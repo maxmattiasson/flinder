@@ -60,6 +60,12 @@ h1 {
   text-align: center;
   padding: 10px;
 }
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 #h2-cont {
   text-align: center;
 }
@@ -221,6 +227,12 @@ h1 {
   position: absolute;
   height: 100vh;
   width: 100vw;
+}
+.friend-code {
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
 }
 /* Media queries */
 

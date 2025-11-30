@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flinder</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header>
@@ -16,7 +22,40 @@
         <button id="reset-storage">Reset Guest Storage</button>
       </nav>
     </header>
-    <main></main>
+    <main>
+      <form id="add-cont">
+        <label for="add-input">Add friend</label>
+        <input
+          id="add-input"
+          name="add"
+          type="text"
+          maxlength="4"
+          minlength="4"
+          placeholder="Enter friend code"
+        />
+        <button type="submit" id="add-btn">Add</button>
+        <p id="add-info"></p>
+      </form>
+      <div id="friends-list"></div>
+      <div id="display-name-cont">
+        <p id="display-name"></p>
+        <button id="edit-name-btn">Change</button>
+      </div>
+      <dialog id="change-name">
+        <form id="change-name-form">
+          <label for="input-display-name">Choose your name</label>
+          <input
+            id="input-display-name"
+            type="text"
+            maxlength="8"
+            minlength="2"
+          />
+          <p id="name-change-info"></p>
+          <button id="submit-name" type="submit">Save</button>
+          <button id="cancel-name" type="button">Cancel</button>
+        </form>
+      </dialog>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module" src="main.js"></script>
   </body>
