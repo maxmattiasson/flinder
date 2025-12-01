@@ -2,12 +2,15 @@ import { getAuthState } from "../api/auth.js";
 import { supabase } from "../api/supabase.js";
 import { GuestVotes } from "../utils/localStorage.js";
 import { getYesVotes, deleteYesVote } from "../api/votes.js";
+import { getFriends } from "../helpers/getFriends.js";
+import { getFriendsYes } from "../helpers/getFriendsYes.js";
+import { getFriendsDisplayName } from "../helpers/getFriendsDisplayName.js";
+import { getFriendsForUI } from "../helpers/getFriendsCode.js";
 
 export async function initLibrary() {
   const user = await getAuthState();
   if (!user) {
     const data = GuestVotes.load().filter((m) => m.vote === "yes");
-    console.log(data);
     renderCount(data);
     renderLibrary(data);
     addListeners();
@@ -23,9 +26,9 @@ export async function initLibrary() {
   if (error) {
     console.log("error with getting user votes", error.message);
   }
-  console.log(data);
   renderCount(data);
   renderLibrary(data);
+  await getFriendsMatches();
   addListeners();
 }
 function renderLibrary(data) {
@@ -70,7 +73,6 @@ function renderCount(dataOptional) {
     count.textContent = ` (${cards.length})`;
   } else {
     count.textContent = ` (${dataOptional.length})`;
-    console.log(dataOptional);
   }
 
   cont.append(count);
@@ -93,4 +95,17 @@ function addListeners() {
       renderCount();
     }
   });
+}
+async function getFriendsMatches() {
+  const user = await getAuthState();
+  if (!user) return;
+
+  const myYes = await getYesVotes();
+
+  const friends = await getFriends();
+  console.log("friends IDs: ", friends);
+
+  const friendsYes = await getFriendsYes(user, friends);
+  const displayName = await getFriendsForUI();
+  console.log("displaynames: ", displayName);
 }
