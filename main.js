@@ -7,6 +7,7 @@ import { initApp } from "./pages/app.js";
 import { getActiveCategory, initCategories } from "./pages/categories.js";
 import { initProfile } from "./pages/profile.js";
 import { initLibrary } from "./pages/library.js";
+import { initIndex } from "./pages/index.js";
 
 renderAuthState();
 
@@ -29,13 +30,4 @@ if (path.endsWith("login.html")) {
   initProfile();
 } else if (path.endsWith("library.html")) {
   initLibrary();
-}
-
-function initIndex() {
-  document.querySelector("#login-index").addEventListener("click", () => {
-    window.location.href = "login.html";
-  });
-  document.querySelector("#signup-index").addEventListener("click", () => {
-    window.location.href = "signup.html";
-  });
 }

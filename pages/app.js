@@ -101,15 +101,15 @@ function renderBackdrop(movie, path) {
 }
 function loadListeners() {
   const container = document.querySelector("#movie-cont");
+  if (!container) return;
 
   container.addEventListener("click", (e) => {
-    if (e.target.closest(".poster-cont")) {
-      const card = e.target.closest(".poster-cont");
-      if (!card) return;
-      console.log("click");
-      document.getElementById("movie-modal").classList.remove("hidden");
-      renderModal(card.dataset.id);
-    }
+    const card = e.target.closest(".poster-cont");
+    if (!card || !container.contains(card)) return;
+
+    console.log("click");
+    document.getElementById("movie-modal").classList.remove("hidden");
+    renderModal(card.dataset.id);
   });
 }
 async function renderModal(movieId) {
