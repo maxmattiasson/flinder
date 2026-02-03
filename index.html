@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,22 +8,38 @@
   </head>
   <body>
     <header>
-      <h1><a href="index.html">Flinder</a></h1>
-      <nav>
+      <h1 class="site-title">
+        <a href="index.html">
+          <img
+            id="flinder-logo"
+            src="assets/images/flinder-bgdark.png"
+            alt="Flinder logo"
+          />
+        </a>
+      </h1>
+      <div class="index-cont-login">
+        <button id="login-index">Login</button><span> / </span>
+        <button id="signup-index">Signup</button>
+      </div>
+      <!-- <nav>
         <a href="/app.html">Swipe</a>
         <a href="/categories.html">Categories</a>
-        <a href="/profile.html" id="auth-state"></a>
-      </nav>
+        <div id="auth-state"></div>
+      </nav> -->
     </header>
     <main>
       <div id="h2-cont">
-        <h2>Find movies together</h2>
-        <p>Make a library of things you both want to watch</p>
+        <h2>
+          The greatest flix finder on earth<span id="index-tiny">
+            probably</span
+          >
+        </h2>
       </div>
-      <img id="landing-img" src="assets/images/flinder.png" />
-      <button id="cta-main">Try it out</button>
-      <button id="login-index">Login</button>
-      <button id="signup-index">Signup</button>
+      <button id="cta-main">LETS GO!</button>
+
+      <div class="hero-logo">
+        <img src="assets/images/flinder.png" alt="Flinder cute" />
+      </div>
     </main>
     <footer></footer>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

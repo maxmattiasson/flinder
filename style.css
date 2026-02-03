@@ -3,6 +3,23 @@
   --txt-color: rgb(255, 255, 255);
   --red-color: rgb(71, 14, 14);
   --gray-color: rgb(211, 211, 211);
+
+  /* Base */
+  --bg: #141821;
+  --surface: #141821;
+  --txt: #e6e9ef;
+  --txt-muted: #a9b0c2;
+
+  /* Accent */
+  --accent: #ff8c42;
+  --accent-hover: #ff9d5c;
+
+  /* Shadows (dark mode = subtle!) */
+  --shadow-dark: 10px 10px 20px rgba(0, 0, 0, 0.55);
+  --shadow-light: -10px -10px 20px rgba(255, 255, 255, 0.04);
+
+  --inset-dark: inset 6px 6px 10px rgba(0, 0, 0, 0.6);
+  --inset-light: inset -6px -6px 10px rgba(255, 255, 255, 0.06);
 }
 
 /* General reset */
@@ -13,11 +30,14 @@
 }
 body {
   min-height: 100vh;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background-color: var(--bg-color);
-  color: var(--txt-color);
+  background: var(--bg);
+  color: var(--txt);
 }
 ul,
 ol {
@@ -48,39 +68,220 @@ main {
   align-items: center;
   gap: 20px;
 }
-header {
-  display: flex;
-  justify-content: space-around;
-  align-items: baseline;
-}
-header a {
-  margin-right: 10px;
-}
-h1 {
-  text-align: center;
-  padding: 10px;
-}
 dialog {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-#h2-cont {
-  text-align: center;
+header {
+  max-width: 1100px;
+  margin: 16px auto;
+  padding: 14px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 18px;
+  /* background: var(--surface); */
+  /* box-shadow: var(--shadow-dark), var(--shadow-light); */
 }
-#landing-img {
-  width: 80vw;
-  border-radius: 10px;
+#flinder-logo {
+  border-radius: 50%;
+  height: 120px;
+  width: 100%;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+}
+
+#index-tiny {
+  font-size: 0.6rem;
+  position: absolute;
+}
+header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+header h1 a {
+  color: var(--txt);
+  text-decoration: none;
+}
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+header nav a {
+  text-decoration: none;
+  color: var(--txt-muted);
+
+  padding: 10px 14px;
+  border-radius: 14px;
+
+  background: var(--surface);
+  box-shadow: var(--shadow-dark), var(--shadow-light);
+
+  transition: all 0.12s ease;
+}
+
+header nav a:hover {
+  color: var(--txt);
+  transform: translateY(-1px);
+}
+
+header nav a:active {
+  transform: translateY(0);
+  box-shadow: var(--inset-dark), var(--inset-light);
+}
+
+/* Auth area: make it look like a special pill */
+#auth-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  background: var(--surface);
+  box-shadow: var(--shadow-dark), var(--shadow-light);
+}
+#auth-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 8px 14px;
+  border-radius: 999px;
+
+  background: var(--surface);
+  box-shadow: var(--shadow-dark), var(--shadow-light);
+
+  font-size: 14px;
+  color: var(--txt-muted);
+}
+
+#auth-state button {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+
+  background: var(--surface);
+  color: var(--txt);
+
+  box-shadow: var(--shadow-dark), var(--shadow-light);
+}
+
+#auth-state button:active {
+  box-shadow: var(--inset-dark), var(--inset-light);
+}
+
+/* INDEX  */
+.index-cont-login {
+  margin-left: auto;
+  padding: 10px;
+}
+
+#index-cont-login button,
+#login-index,
+#signup-index {
+  background: var(--surface);
+  color: var(--txt-muted);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+
+  box-shadow: var(--shadow-dark), var(--shadow-light);
+}
+
+#index-cont-login button:active {
+  box-shadow: var(--inset-dark), var(--inset-light);
+}
+#h2-cont {
+  position: relative;
+  text-align: center;
+  h2 {
+    text-decoration: underline;
+  }
+}
+/* INDEX PICTURE  */
+
+.hero-logo {
+  width: 260px;
+  height: 260px;
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+  background: var(--surface);
+
+  box-shadow: var(--shadow-dark), var(--shadow-light);
+
+  margin: 32px auto;
+}
+
+.hero-logo img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+
+  border-radius: 50%;
+}
+.hero-logo::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+
+  border-radius: 50%;
+  box-shadow: var(--inset-dark), var(--inset-light);
+}
+.hero-logo::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+
+  border-radius: 50%;
+  pointer-events: none;
+
+  box-shadow: 0 0 35px rgba(255, 140, 66, 0.18);
 }
 #cta-main {
-  width: 300px;
-  height: 100px;
-  background-color: var(--red-color);
-  border: 2px white solid;
-  border-radius: 40px;
-  color: var(--txt-color);
+  margin-top: 28px;
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+
+  border-radius: 999px;
+  border: none;
   cursor: pointer;
+
+  background: var(--accent);
+  color: #1b1b1b;
+
+  box-shadow:
+    0 10px 30px rgba(255, 140, 66, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+#cta-main:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+#cta-main:active {
+  transform: translateY(0);
+  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* App */
