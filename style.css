@@ -82,16 +82,19 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  max-width: 500px;
   border-radius: 18px;
   /* background: var(--surface); */
   /* box-shadow: var(--shadow-dark), var(--shadow-light); */
 }
 #flinder-logo {
-  border-radius: 50%;
   height: 120px;
   width: 100%;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+  border-radius: 118px;
+  background: linear-gradient(145deg, #151a23, #12161e);
+  box-shadow:
+    31px 31px 62px #080a0d,
+    -31px -31px 62px #202635;
 }
 
 #index-tiny {
@@ -253,7 +256,7 @@ header nav a:active {
 }
 #cta-main {
   margin-top: 28px;
-  padding: 16px 32px;
+  padding: 32px 64px;
   font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -384,7 +387,6 @@ header nav a:active {
   display: flex;
   position: relative;
   flex-direction: column;
-  border: 2px solid var(--gray-color);
   padding: 10px;
   border-radius: 10px;
   justify-content: center;
@@ -429,6 +431,17 @@ header nav a:active {
   height: 100vh;
   width: 100vw;
 }
+#close-modal-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 .friend-code {
   font-family: "JetBrains Mono", monospace;
   font-optical-sizing: auto;
@@ -445,5 +458,11 @@ header nav a:active {
     grid-template-columns: repeat(auto-fit, minmax(20vw, 30vw));
     gap: 10px;
     width: 95vw;
+  }
+  .modal {
+    background-color: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    height: 90vh;
+    width: 80vw;
   }
 }

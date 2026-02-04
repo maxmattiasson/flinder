@@ -22,9 +22,9 @@
         <button id="swipe-no">👎</button>
       </div>
       <div id="movie-modal" class="modal hidden">
+        <div id="modal-title"><span id="modal-year"></span></div>
         <iframe id="modal-trailer" allowfullscreen></iframe>
         <img id="modal-poster" />
-        <div id="modal-title"><span id="modal-year"></span></div>
         <div id="modal-desc"></div>
         <div id="modal-genres"></div>
         <div id="modal-actors"></div>
@@ -34,6 +34,7 @@
         <div id="modal-tagline"></div>
         <div id="modal-vote-count"></div>
         <img id="modal-backdrop">
+        <button id="close-modal-btn">✖</button>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module" src="main.js"></script>

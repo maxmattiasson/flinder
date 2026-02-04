@@ -57,7 +57,18 @@ function renderMovie() {
   renderBackdrop(movie, path);
 
   const rating = document.createElement("p");
+  rating.style.marginLeft = "10px";
   rating.textContent = "⭐ " + movie.vote_average.toFixed(1);
+
+  const ratingHelpSpan = document.createElement("span");
+  ratingHelpSpan.textContent = " /10";
+  ratingHelpSpan.style.fontSize = "0.6rem";
+  rating.append(ratingHelpSpan);
+
+  const ratingSpan = document.createElement("span");
+  ratingSpan.textContent = ` (${movie.vote_count} votes)`;
+  ratingSpan.style.fontSize = "0.6rem";
+  rating.append(ratingSpan);
 
   // const desc = document.createElement("p");
   // desc.classList.add("desc-cont");
@@ -75,11 +86,16 @@ function renderButtons() {
   yesBtn.textContent = "👍";
   noBtn.textContent = "👎";
 
-  yesBtn.addEventListener("click", async () => {
+  yesBtn.classList.add("no-modal");
+  noBtn.classList.add("no-modal");
+
+  yesBtn.addEventListener("click", async (e) => {
+    e.stopPropagation();
     await hub.handleSwipe("yes");
     renderMovie();
   });
-  noBtn.addEventListener("click", async () => {
+  noBtn.addEventListener("click", async (e) => {
+    e.stopPropagation();
     await hub.handleSwipe("no");
     renderMovie();
   });
@@ -104,12 +120,23 @@ function loadListeners() {
   if (!container) return;
 
   container.addEventListener("click", (e) => {
+    if (e.target.closest(".no-modal")) return;
+
     const card = e.target.closest(".poster-cont");
     if (!card || !container.contains(card)) return;
 
     console.log("click");
     document.getElementById("movie-modal").classList.remove("hidden");
     renderModal(card.dataset.id);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (
+      e.key === "Escape" &&
+      !document.getElementById("movie-modal").classList.contains("hidden")
+    ) {
+      closeModal();
+    }
   });
 }
 async function renderModal(movieId) {
@@ -128,10 +155,24 @@ async function renderModal(movieId) {
     tagline: $("modal-tagline"),
     voteCount: $("modal-vote-count"),
     backdrop: $("modal-backdrop"),
+    closeBtn: $("close-modal-btn"),
   };
   const movie = await fetchMovieFull(movieId);
   console.log(movie);
   DOM.overview.textContent = movie.overview;
-  DOM.title.textContent = movie.title;
+  // DOM.title.textContent = movie.title;
   DOM.trailer.src = `${movie.video}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0`;
+  DOM.stream.textContent = movie.stream;
+
+  DOM.closeBtn.addEventListener("click", closeModal);
 }
+
+function closeModal() {
+  const modal = document.getElementById("movie-modal");
+  const trailer = document.getElementById("modal-trailer");
+
+  modal.classList.add("hidden");
+  if (trailer) trailer.src = "";
+}
+
+function handleStreamProviders() {}

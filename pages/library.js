@@ -100,12 +100,9 @@ async function getFriendsMatches() {
   const user = await getAuthState();
   if (!user) return;
 
-  const myYes = await getYesVotes();
-
   const friends = await getFriends();
+  if (!friends || friends.length === 0) return;
   console.log("friends IDs: ", friends);
 
-  const friendsYes = await getFriendsYes(user, friends);
-  const displayName = await getFriendsForUI();
-  console.log("displaynames: ", displayName);
+  const myYes = await getYesVotes();
 }
