@@ -104,7 +104,7 @@ export class MovieHub {
         title: movie.title,
         poster_url: movie.poster_path,
       },
-      { onConflict: "user_id,movie_id" }
+      { onConflict: "user_id,movie_id" },
     );
     if (result.error) {
       console.log("Error with storing to supabase", result.error.message);
@@ -136,7 +136,7 @@ export class MovieHub {
         position: this.position,
         category: this.category,
       },
-      { onConflict: "user_id,category" }
+      { onConflict: "user_id,category" },
     );
     if (error) {
       console.log("Error to update progress to supabase", error);
