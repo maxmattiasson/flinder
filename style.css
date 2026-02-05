@@ -375,6 +375,11 @@ header nav a:active {
 #swipe-yes {
   background: linear-gradient(to left, rgba(0, 255, 0, 0.25), transparent);
 }
+
+#match-toast {
+  display: none;
+}
+
 .library-grid {
   display: flex;
   align-items: center;

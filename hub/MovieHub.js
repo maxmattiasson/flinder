@@ -3,6 +3,8 @@ import { getAuthState } from "../api/auth.js";
 import { supabase } from "../api/supabase.js";
 import { findCurrIndexHelper } from "../utils/findIndexHelper.js";
 import { GuestVotes, GuestProgress } from "../utils/localStorage.js";
+import { getMatchOnSwipe } from "../helpers/getMatchOnSwipe.js";
+import { renderMatchToast } from "../helpers/renderMatchToast.js";
 
 const PAGE_SIZE = 20;
 
@@ -72,6 +74,13 @@ export class MovieHub {
 
     if (this.movies.length - this.currentIndex <= this.preloadGap) {
       await this.loadNextPage();
+    }
+    if (vote === "yes") {
+      getMatchOnSwipe(movie.id)
+        .then((matched) => {
+          if (matched?.length) renderMatchToast(movie.title, matched);
+        })
+        .catch((err) => console.error("match check failed:", err));
     }
     return this.getCurrentMovie();
   }

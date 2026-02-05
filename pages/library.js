@@ -3,7 +3,7 @@ import { supabase } from "../api/supabase.js";
 import { GuestVotes } from "../utils/localStorage.js";
 import { getYesVotes, deleteYesVote } from "../api/votes.js";
 import { getFriends } from "../helpers/getFriends.js";
-import { getFriendsYes } from "../helpers/getFriendsYes.js";
+import { getMatchedLibrary } from "../helpers/getMatchedLibrary.js";
 import { getFriendsDisplayName } from "../helpers/getFriendsDisplayName.js";
 import { getFriendsForUI } from "../helpers/getFriendsCode.js";
 
@@ -26,9 +26,12 @@ export async function initLibrary() {
   if (error) {
     console.log("error with getting user votes", error.message);
   }
+  const friendData = await getMatchedLibrary();
+  console.log("Frienddata:", friendData);
   renderCount(data);
   renderLibrary(data);
-  await getFriendsMatches();
+
+  renderMatchedLibrary(friendData);
   addListeners();
 }
 function renderLibrary(data) {
@@ -78,12 +81,6 @@ function renderCount(dataOptional) {
   cont.append(count);
 }
 
-function sortByDate() {}
-
-function renderSort() {
-  const button = document.createElement("button");
-}
-
 function addListeners() {
   const container = document.querySelector(".library-grid");
   container.addEventListener("click", async (e) => {
@@ -96,13 +93,28 @@ function addListeners() {
     }
   });
 }
-async function getFriendsMatches() {
-  const user = await getAuthState();
-  if (!user) return;
+async function renderMatchedLibrary(data) {
+  // Reduce ?? to put create the right amount of libs and put them in the right place?
+  // clean up UI
+  const container = document.createElement("div");
+  container.id = "matched-library";
+  const friendTitle = document.createElement("h3");
+  friendTitle.textContent = "Friends' Matches";
+  container.prepend(friendTitle);
+  const path = "https://image.tmdb.org/t/p/w500/";
 
-  const friends = await getFriends();
-  if (!friends || friends.length === 0) return;
-  console.log("friends IDs: ", friends);
+  data.forEach((movie) => {
+    const card = document.createElement("div");
+    card.classList.add("library-card");
 
-  const myYes = await getYesVotes();
+    const posterCont = document.createElement("div");
+    const poster = document.createElement("img");
+    poster.classList.add("library-poster");
+    poster.src = path + movie.poster_url;
+
+    posterCont.append(poster);
+    card.append(posterCont);
+    container.append(card);
+  });
+  document.querySelector("main").append(container);
 }
