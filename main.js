@@ -19,6 +19,7 @@ if (path.endsWith("login.html")) {
   initSignup();
 } else if (path.endsWith("index.html")) {
   initIndex();
+  initLogin();
 } else if (path.endsWith("app.html")) {
   initApp();
 } else if (path.endsWith("categories.html")) {

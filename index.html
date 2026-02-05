@@ -7,20 +7,17 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
+    <header id="header-index">
       <h1 class="site-title">
         <a href="index.html">
-          <img
+          <!-- <img
             id="flinder-logo"
             src="assets/images/flinder-bgdark.png"
             alt="Flinder logo"
-          />
+          /> -->
         </a>
       </h1>
-      <div class="index-cont-login">
-        <button id="login-index">Login</button><span> / </span>
-        <button id="signup-index">Signup</button>
-      </div>
+
       <!-- <nav>
         <a href="/app.html">Swipe</a>
         <a href="/categories.html">Categories</a>
@@ -28,6 +25,13 @@
       </nav> -->
     </header>
     <main>
+      <div id="hero">
+        <img src="assets/images/test2.png" alt="Flinder cute" />
+      </div>
+      <button id="cta-main">Match movies!</button>
+
+      <!-- <div class="hero-logo"></div> -->
+
       <div id="h2-cont">
         <h2>
           The greatest flix finder on earth<span id="index-tiny">
@@ -35,10 +39,29 @@
           >
         </h2>
       </div>
-      <button id="cta-main">LETS GO!</button>
-
-      <div class="hero-logo">
-        <img src="assets/images/flinder.png" alt="Flinder cute" />
+      <form id="login-form">
+        <input
+          type="email"
+          id="login-email"
+          placeholder="Username"
+          autocomplete="email"
+          required
+        />
+        <input
+          type="password"
+          id="login-password"
+          placeholder="Password"
+          autocomplete="current-password"
+          required
+          minlength="6"
+        />
+        <menu>
+          <button id="login-index" type="submit">Login</button>
+        </menu>
+      </form>
+      <div class="signup-cont">
+        <p>Don't have an account?</p>
+        <button id="signup-index">Sign up!</button>
       </div>
     </main>
     <footer></footer>
