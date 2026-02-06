@@ -40,9 +40,6 @@ function renderMovie() {
     genreCont.append(genre);
   });
 
-  const title = document.createElement("h3");
-  title.textContent = movie.title;
-
   const release = document.createElement("p");
   release.textContent = movie.release_date.slice(0, 4);
 
@@ -75,7 +72,7 @@ function renderMovie() {
   // desc.textContent = movie.overview;
 
   posterCont.append(poster);
-  cont.append(title, release, posterCont, genreCont, rating);
+  cont.append(release, posterCont, genreCont, rating);
   renderButtons();
 }
 function renderButtons() {
@@ -105,7 +102,8 @@ function renderButtons() {
 }
 function renderCategory(category) {
   const currCat = document.createElement("h2");
-  currCat.textContent = category;
+  currCat.textContent =
+    category.slice(0, 1).toUpperCase() + category.slice(1).toLowerCase();
   document.querySelector("#movie-cont").prepend(currCat);
 }
 function renderBackdrop(movie, path) {

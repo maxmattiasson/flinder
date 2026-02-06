@@ -328,27 +328,13 @@ header nav a:active {
 }
 
 /* App */
-#title-cont {
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-  gap: 20px;
-}
-#info-cont {
-  display: flex;
-  gap: 10px;
-}
+
 .swipe-poster {
-  width: 40vw;
+  width: 100%;
+  height: 500px;
   border-radius: 20px;
-  border: 2px solid honeydew;
 }
-/* #movie-cont {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-} */
+
 .poster-cont {
   display: flex;
   align-items: center;
@@ -364,31 +350,6 @@ header nav a:active {
 }
 
 /* Test my shit */
-
-#swipe-cont {
-  display: flex;
-  overflow-x: auto;
-  width: 100vw;
-  scrollbar-width: none;
-  scroll-snap-type: x mandatory;
-}
-#swipe-cont::-webkit-scrollbar {
-  display: none;
-}
-
-#movie-cont {
-  flex: 0 0 100vw;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  scroll-snap-align: center;
-  .desc-cont {
-    width: 50vw;
-  }
-}
 .genre-cont {
   display: flex;
   gap: 10px;
@@ -400,25 +361,11 @@ header nav a:active {
   }
 }
 
-#swipe-no,
-#swipe-yes {
-  flex: 0 0 120px;
-  height: 60%;
-  border: none;
-  font-size: 2rem;
-  background: transparent;
-  cursor: pointer;
-}
-#swipe-no {
-  background: linear-gradient(to right, rgba(255, 0, 0, 0.25), transparent);
-}
-#swipe-yes {
-  background: linear-gradient(to left, rgba(0, 255, 0, 0.25), transparent);
-}
-
 #match-toast {
   display: none;
 }
+
+/* LIBRARY CSS */
 
 .library-grid {
   display: flex;
