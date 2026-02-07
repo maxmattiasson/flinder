@@ -10,12 +10,13 @@ const PAGE_SIZE = 20;
 
 export class MovieHub {
   constructor(category = "popular") {
-    this.preloadGap = 5;
+    this.preloadGap = 0;
     this.category = category;
     this.currentPage = 1;
     this.currentIndex = 0;
     this.position = 0;
     this.movies = [];
+    this.isLoading = false;
   }
 
   async init() {
@@ -70,11 +71,17 @@ export class MovieHub {
     this.currentIndex++;
     this.position++;
 
+    if (
+      !this.isLoading &&
+      this.movies.length - this.currentIndex <= this.preloadGap
+    ) {
+      this.isLoading = true;
+      await this.loadNextPage();
+      this.isLoading = false;
+    }
+
     await this.savePageProgress();
 
-    if (this.movies.length - this.currentIndex <= this.preloadGap) {
-      await this.loadNextPage();
-    }
     if (vote === "yes") {
       getMatchOnSwipe(movie.id)
         .then((matched) => {
@@ -155,7 +162,7 @@ export class MovieHub {
   }
   async loadNextPage() {
     this.currentPage++;
-    const next = await fetchMovies(this.currentPage, this.category);
-    this.movies = this.movies.concat(next);
+    this.currentIndex = 0;
+    this.movies = await fetchMovies(this.currentPage, this.category);
   }
 }

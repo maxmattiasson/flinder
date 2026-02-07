@@ -77,23 +77,19 @@ dialog {
   transform: translate(-50%, -50%);
 }
 header {
-  max-width: 1100px;
-  margin: 16px auto;
+  margin: auto;
   padding: 14px 18px;
+  height: 10vh;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 500px;
+  max-width: 380px;
   border-radius: 18px;
   /* background: var(--surface); */
   /* box-shadow: var(--shadow-dark), var(--shadow-light); */
 }
-#header-index {
-  max-width: 700px;
-  padding: 0;
-  margin: 0;
-}
+
 #flinder-logo {
   width: 100%;
   background: linear-gradient(145deg, #151a23, #12161e);
@@ -215,10 +211,10 @@ header nav a:active {
   text-align: center;
   width: 500px;
   border-radius: 10px;
-  h2 {
-    color: var(--txt);
-    font-size: 1.2rem;
-  }
+}
+#h2-cont h2 {
+  color: var(--txt);
+  font-size: 1.2rem;
 }
 
 .signup-cont {
@@ -327,14 +323,48 @@ header nav a:active {
   box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* App */
+/* App-page */
 
 #movie-cont {
   position: relative;
+  width: min(92vw, 320px);
+  height: 80vh;
 }
+
+#movie-cont button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  padding: 12px;
+  position: absolute;
+  top: 560px;
+  border-radius: 50%;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.category-span {
+  position: absolute;
+  top: 6px;
+  right: 600px;
+  font-size: 0.8rem;
+  color: var(--txt-muted);
+}
+.category-app {
+  cursor: pointer;
+}
+
+.yes-btn {
+  right: 20px;
+}
+.no-btn {
+  right: 240px;
+  font-size: 1rem;
+}
+
 .swipe-poster {
   width: 100%;
-  height: 500px;
+  height: 480px;
   border-radius: 20px;
 }
 
@@ -342,6 +372,7 @@ header nav a:active {
   display: flex;
   align-items: center;
   gap: 20px;
+  cursor: pointer;
 }
 .poster-cont button {
   width: 40px;
@@ -354,28 +385,53 @@ header nav a:active {
 
 .release-year-app {
   position: absolute;
+  user-select: none;
+
   font-family: "Rubik Doodle Shadow", system-ui;
   font-weight: 400;
   font-style: normal;
-  top: 10px;
-  right: 90px;
+  top: 8px;
+  right: 8px;
   font-size: 1.6rem;
-  /* background: rgba(0, 0, 0, 0.4);
-  filter: blur(50%); */
-  border-radius: 50%;
-  padding: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 10px;
+  padding: 0px 10px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
 }
-
-/* Test my shit */
+.rating-app {
+  position: absolute;
+  cursor: pointer;
+  top: 450px;
+  right: 8px;
+  user-select: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 0px 8px;
+}
+.rating-app:hover {
+  filter: brightness(1.2);
+}
+.rating-toggle {
+  color: var(--txt-muted);
+}
 .genre-cont {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
-  p {
-    background-color: var(--gray-color);
-    border-radius: 10px;
-    padding: 5px 10px;
-    color: var(--bg-color);
-  }
+  padding: 10px;
+  user-select: none;
+}
+.genre-cont p {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.8rem;
+  border-radius: 999px;
+  padding: 2px 12px;
 }
 
 #match-toast {

@@ -58,17 +58,20 @@ function renderMovie() {
   renderBackdrop(movie, path);
 
   const rating = document.createElement("p");
+  rating.classList.add("rating-app");
   rating.style.marginLeft = "10px";
   rating.textContent = "⭐ " + movie.vote_average.toFixed(1);
 
   const ratingHelpSpan = document.createElement("span");
   ratingHelpSpan.textContent = " /10";
   ratingHelpSpan.style.fontSize = "0.6rem";
+  ratingHelpSpan.classList.add("hidden", "rating-toggle");
   rating.append(ratingHelpSpan);
 
   const ratingSpan = document.createElement("span");
   ratingSpan.textContent = ` (${movie.vote_count} votes)`;
   ratingSpan.style.fontSize = "0.6rem";
+  ratingSpan.classList.add("hidden", "rating-toggle");
   rating.append(ratingSpan);
 
   // const desc = document.createElement("p");
@@ -82,10 +85,12 @@ function renderMovie() {
 function renderButtons() {
   const yesBtn = document.createElement("button");
   const noBtn = document.createElement("button");
-  const posterCont = document.querySelector(".poster-cont");
+  const posterCont = document.querySelector("#movie-cont");
+  yesBtn.classList.add("yes-btn");
+  noBtn.classList.add("no-btn");
 
-  yesBtn.textContent = "👍";
-  noBtn.textContent = "👎";
+  yesBtn.textContent = "❤️‍🔥";
+  noBtn.textContent = "❌";
 
   yesBtn.classList.add("no-modal");
   noBtn.classList.add("no-modal");
@@ -101,14 +106,22 @@ function renderButtons() {
     renderMovie();
   });
 
+  posterCont.append(noBtn);
   posterCont.append(yesBtn);
-  posterCont.prepend(noBtn);
 }
 function renderCategory(category) {
   const currCat = document.createElement("h2");
+
+  const span = document.createElement("span");
+  span.classList.add("category-span");
+  span.textContent = "Currently on:";
+
   currCat.textContent =
     category.slice(0, 1).toUpperCase() + category.slice(1).toLowerCase();
+  currCat.classList.add("category-app");
+
   document.querySelector("header").prepend(currCat);
+  currCat.prepend(span);
 }
 function renderBackdrop(movie, path) {
   const bgUrl = path + movie.backdrop_path;
@@ -123,13 +136,17 @@ function loadListeners() {
 
   container.addEventListener("click", (e) => {
     if (e.target.closest(".no-modal")) return;
-
+    handleRatingClick(e);
     const card = e.target.closest(".poster-cont");
     if (!card || !container.contains(card)) return;
 
     console.log("click");
     document.getElementById("movie-modal").classList.remove("hidden");
     renderModal(card.dataset.id);
+  });
+
+  document.querySelector("header").addEventListener("click", (e) => {
+    handleCategoryClick(e);
   });
 
   document.addEventListener("keydown", (e) => {
@@ -175,6 +192,21 @@ function closeModal() {
 
   modal.classList.add("hidden");
   if (trailer) trailer.src = "";
+}
+function handleRatingClick(e) {
+  const rating = e.target.closest(".rating-app");
+  if (!rating) return;
+
+  document.querySelectorAll(".rating-toggle").forEach((el) => {
+    el.classList.toggle("hidden");
+  });
+}
+
+function handleCategoryClick(e) {
+  const category = e.target.closest(".category-app");
+  if (!category) return;
+
+  window.location.href = "categories.html";
 }
 
 function handleStreamProviders() {}
