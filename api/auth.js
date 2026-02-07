@@ -1,4 +1,5 @@
 import { supabase } from "./supabase.js";
+import { getDisplayName } from "../helpers/getDisplayName.js";
 
 export async function getAuthState() {
   const {
@@ -12,22 +13,33 @@ export async function renderAuthState(containerSelector = "#auth-state") {
   if (!container) return;
 
   const user = await getAuthState();
+  const displayName = await getDisplayName();
 
   container.innerHTML = "";
 
-  const userCont = document.createElement("p");
+  const userCont = document.createElement("span");
 
   if (user) {
-    userCont.textContent = `Logged in as: ${user.email}`;
-    const logOutBtn = document.createElement("button");
-    logOutBtn.textContent = "Logout";
-    logOutBtn.addEventListener("click", async () => {
-      await supabase.auth.signOut();
-      renderAuthState(containerSelector);
-    });
-    container.append(userCont, logOutBtn);
+    // const logOutBtn = document.createElement("button");
+    // logOutBtn.textContent = "Logout";
+    // logOutBtn.addEventListener("click", async () => {
+    //   await supabase.auth.signOut();
+    //   renderAuthState(containerSelector);
+
+    userCont.textContent = displayName;
+    const icon = document.createElement("iconify-icon");
+    icon.setAttribute("icon", "ph:user-circle-fill");
+    icon.style.fontSize = "32px";
+
+    container.append(userCont, icon);
   } else {
     userCont.textContent = "Guest";
+
+    const icon = document.createElement("iconify-icon");
+    icon.setAttribute("icon", "ph:user-circle");
+    icon.style.fontSize = "32px";
+
     container.append(userCont);
+    container.append(icon);
   }
 }

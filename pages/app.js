@@ -151,6 +151,7 @@ function loadListeners() {
 
   document.querySelector("header").addEventListener("click", (e) => {
     handleCategoryClick(e);
+    handleProfileClick(e);
   });
 
   document.addEventListener("keydown", (e) => {
@@ -211,6 +212,11 @@ function handleCategoryClick(e) {
   if (!category) return;
 
   window.location.href = "categories.html";
+}
+function handleProfileClick(e) {
+  const profile = e.target.closest("#auth-state");
+  if (!profile) return;
+  window.location.href = "profile.html";
 }
 
 function handleStreamProviders() {}

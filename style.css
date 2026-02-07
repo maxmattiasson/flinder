@@ -138,46 +138,20 @@ header nav a:active {
 }
 
 /* Auth area: make it look like a special pill */
+
 #auth-state {
   display: flex;
   align-items: center;
   gap: 10px;
 
-  padding: 10px 14px;
-  border-radius: 999px;
-
-  background: var(--surface);
-  box-shadow: var(--shadow-dark), var(--shadow-light);
-}
-#auth-state {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
+  cursor: pointer;
   padding: 8px 14px;
-  border-radius: 999px;
-
-  background: var(--surface);
-  box-shadow: var(--shadow-dark), var(--shadow-light);
-
+  border-radius: 50px;
+  background: rgb(0, 0, 0, 0.3);
   font-size: 14px;
   color: var(--txt-muted);
-}
 
-#auth-state button {
-  border: none;
-  padding: 6px 12px;
-  border-radius: 999px;
-  cursor: pointer;
-
-  background: var(--surface);
-  color: var(--txt);
-
-  box-shadow: var(--shadow-dark), var(--shadow-light);
-}
-
-#auth-state button:active {
-  box-shadow: var(--inset-dark), var(--inset-light);
+  border: 2px solid rgba(0, 0, 0, 0.15);
 }
 
 /* INDEX  */
