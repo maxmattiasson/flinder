@@ -423,6 +423,7 @@ header nav a:active {
   justify-content: center;
   gap: 10px;
   padding: 10px;
+  margin-top: 8px;
   user-select: none;
 }
 .genre-cont p {

@@ -27,7 +27,7 @@ export async function renderAuthState(containerSelector = "#auth-state") {
     });
     container.append(userCont, logOutBtn);
   } else {
-    userCont.textContent = "Pp";
+    userCont.textContent = "Guest";
     container.append(userCont);
   }
 }
