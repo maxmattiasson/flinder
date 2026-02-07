@@ -110,6 +110,9 @@ function renderButtons() {
   posterCont.append(yesBtn);
 }
 function renderCategory(category) {
+  const container = document.createElement("div");
+  container.classList.add("container-category");
+
   const currCat = document.createElement("h2");
 
   const span = document.createElement("span");
@@ -120,9 +123,10 @@ function renderCategory(category) {
     category.slice(0, 1).toUpperCase() + category.slice(1).toLowerCase();
   currCat.classList.add("category-app");
 
-  document.querySelector("header").prepend(currCat);
-  currCat.prepend(span);
+  container.append(currCat, span);
+  document.querySelector("header").prepend(container);
 }
+
 function renderBackdrop(movie, path) {
   const bgUrl = path + movie.backdrop_path;
   document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${bgUrl})`;

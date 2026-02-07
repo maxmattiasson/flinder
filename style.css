@@ -342,12 +342,17 @@ header nav a:active {
   font-size: 2rem;
   cursor: pointer;
 }
-
+.container-category {
+  position: relative;
+  display: inline-block;
+}
 .category-span {
   position: absolute;
-  top: 6px;
-  right: 600px;
-  font-size: 0.8rem;
+  top: -10px;
+  left: -10px;
+  width: 80px;
+  font-weight: 700;
+  font-size: 0.7rem;
   color: var(--txt-muted);
 }
 .category-app {
@@ -355,10 +360,10 @@ header nav a:active {
 }
 
 .yes-btn {
-  right: 20px;
+  left: 240px;
 }
 .no-btn {
-  right: 240px;
+  left: 20px;
   font-size: 1rem;
 }
 
@@ -391,7 +396,7 @@ header nav a:active {
   font-weight: 400;
   font-style: normal;
   top: 8px;
-  right: 8px;
+  left: 220px;
   font-size: 1.6rem;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(6px);
@@ -403,8 +408,8 @@ header nav a:active {
 .rating-app {
   position: absolute;
   cursor: pointer;
-  top: 450px;
-  right: 8px;
+  top: 448px;
+  left: 0px;
   user-select: none;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(8px);
@@ -500,7 +505,7 @@ header nav a:active {
 #close-modal-btn {
   position: absolute;
   top: 10px;
-  right: 10px;
+  left: 570px;
   background: transparent;
   border: none;
   color: white;
