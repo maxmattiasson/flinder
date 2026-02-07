@@ -30,6 +30,7 @@ function renderMovie() {
   const movie = hub.getCurrentMovie();
   if (!movie) return;
 
+  console.log(movie);
   const genreCont = document.createElement("div");
   genreCont.classList.add("genre-cont");
 
@@ -41,7 +42,10 @@ function renderMovie() {
   });
 
   const release = document.createElement("p");
-  release.textContent = movie.release_date.slice(0, 4);
+  release.classList.add("release-year-app");
+  release.textContent = movie.release_date
+    ? movie.release_date.slice(0, 4)
+    : "—";
 
   const posterCont = document.createElement("div");
   posterCont.classList.add("poster-cont");
@@ -104,7 +108,7 @@ function renderCategory(category) {
   const currCat = document.createElement("h2");
   currCat.textContent =
     category.slice(0, 1).toUpperCase() + category.slice(1).toLowerCase();
-  document.querySelector("#movie-cont").prepend(currCat);
+  document.querySelector("header").prepend(currCat);
 }
 function renderBackdrop(movie, path) {
   const bgUrl = path + movie.backdrop_path;
@@ -162,7 +166,7 @@ async function renderModal(movieId) {
   DOM.trailer.src = `${movie.video}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0`;
   DOM.stream.textContent = movie.stream;
 
-  DOM.closeBtn.addEventListener("click", closeModal);
+  DOM.closeBtn.addEventListener("click", closeModal, { once: true });
 }
 
 function closeModal() {

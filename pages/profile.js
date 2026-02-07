@@ -12,11 +12,6 @@ export async function initProfile() {
   renderFriendsList(friendCodes);
   await renderDisplayName();
   addListeners();
-
-  document.querySelector("#reset-storage").addEventListener("click", () => {
-    localStorage.clear();
-    console.log("reset local storage");
-  });
 }
 
 function generateFriendCode() {
@@ -163,7 +158,7 @@ function addListeners() {
   document
     .getElementById("cancel-name")
     .addEventListener("click", () =>
-      document.getElementById("change-name").close()
+      document.getElementById("change-name").close(),
     );
 
   // Clear input in change name

@@ -1,24 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flinder</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Rubik+Doodle+Shadow&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header>
-      <h1><a href="index.html">Flinder</a></h1>
       <nav>
-        <a href="/app.html">Swipe</a>
-        <a href="/categories.html">Categories</a>
-        <a href="/library.html">Library</a>
         <a href="/profile.html" id="auth-state"></a>
       </nav>
     </header>
     <main>
       <div id="match-toast"></div>
-        <div id="movie-cont"></div>
+      <div id="movie-cont"></div>
       <div id="movie-modal" class="modal hidden">
         <div id="modal-title"><span id="modal-year"></span></div>
         <iframe id="modal-trailer" allowfullscreen></iframe>
@@ -31,8 +33,9 @@
         <div id="modal-rating"></div>
         <div id="modal-tagline"></div>
         <div id="modal-vote-count"></div>
-        <img id="modal-backdrop">
+        <img id="modal-backdrop" />
         <button id="close-modal-btn">✖</button>
+      </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module" src="main.js"></script>
