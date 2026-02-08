@@ -494,6 +494,25 @@ header nav a:active {
   font-style: normal;
 }
 
+/* Categories */
+
+.cat-btn {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.cat-selected {
+  background-color: var(--accent);
+  color: #1b1b1b;
+  box-shadow:
+    0 6px 12px rgba(255, 140, 66, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
 /* Signup page */
 #signup-form {
   display: flex;
