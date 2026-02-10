@@ -632,6 +632,14 @@ header nav a:active {
   padding: 2px;
   cursor: pointer;
 }
+footer {
+  font-size: 0.6rem;
+  text-align: center;
+  color: var(--txt-muted);
+  bottom: 10px;
+  position: fixed;
+  width: 100%;
+}
 
 /* Media queries */
 
