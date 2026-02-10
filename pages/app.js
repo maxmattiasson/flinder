@@ -162,9 +162,13 @@ function loadListeners() {
       closeModal();
     }
   });
+  document
+    .getElementById("close-modal-btn")
+    .addEventListener("click", closeModal);
 }
 async function renderModal(movieId) {
   const $ = (id) => document.getElementById(id);
+  const path = "https://image.tmdb.org/t/p/w500/";
   const DOM = {
     trailer: $("modal-trailer"),
     poster: $("modal-poster"),
@@ -183,12 +187,66 @@ async function renderModal(movieId) {
   };
   const movie = await fetchMovieFull(movieId);
   console.log(movie);
+  DOM.title.textContent = movie.release
+    ? `${movie.title} (${movie.release.slice(0, 4)})`
+    : movie.title;
+  DOM.genres.textContent = movie.genres.map((g) => g.name).join(", ");
+  DOM.runtime.textContent = `Runtime: ${Math.floor(movie.runtime / 60)}h ${
+    movie.runtime % 60
+  }m`;
   DOM.overview.textContent = movie.overview;
-  // DOM.title.textContent = movie.title;
   DOM.trailer.src = `${movie.video}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0`;
-  DOM.stream.textContent = movie.stream;
 
-  DOM.closeBtn.addEventListener("click", closeModal, { once: true });
+  DOM.stream.innerHTML = "";
+
+  const providers = [
+    ...(movie.providers?.SE?.flatrate ?? []).map((p) => ({
+      ...p,
+      region: "SE",
+    })),
+    ...(movie.providers?.SE?.free ?? []).map((p) => ({ ...p, region: "SE" })),
+  ];
+
+  const sorted = [...providers].sort(
+    (a, b) => a.display_priority - b.display_priority,
+  );
+
+  if (sorted.length === 0) {
+    DOM.stream.textContent = "No streaming found 🦜🏴‍☠️";
+    return;
+  }
+
+  sorted.forEach((p) => {
+    const container = document.createElement("div");
+    container.className = "provider-container";
+    const provider = document.createElement("p");
+    provider.textContent = p.provider_name;
+    const logo = document.createElement("img");
+    const flag = document.createElement("img");
+    flag.id = "modal-flag";
+    flag.src = `/assets/images/${p.region.toLowerCase()}.svg`;
+    flag.className = "provider-flag";
+
+    if (p.logo_path) {
+      logo.src = path + p.logo_path;
+    }
+
+    container.append(provider, logo, flag);
+    DOM.stream.append(container);
+  });
+
+  // DOM.stream.textContent =
+  //   movie.providers?.SE?.flatrate.length || movie.providers?.SE?.free.length
+
+  //    providers: {
+  // SE: {
+  //   flatrate: [...(providersData?.results?.SE?.flatrate ?? [])],
+  //   free: [...(providersData?.results?.SE?.free ?? [])],
+  // },
+  // GB: {
+  //   flatrate: [...(providersData?.results?.GB?.flatrate ?? [])],
+  //   free: [...(providersData?.results?.GB?.free ?? [])],
+  // },
 }
 
 function closeModal() {
