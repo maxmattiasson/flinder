@@ -146,6 +146,8 @@ function loadListeners() {
 
     console.log("click");
     document.getElementById("movie-modal").classList.remove("hidden");
+    document.querySelector(".yes-btn").style.display = "none";
+    document.querySelector(".no-btn").style.display = "none";
     renderModal(card.dataset.id);
   });
 
@@ -165,6 +167,17 @@ function loadListeners() {
   document
     .getElementById("close-modal-btn")
     .addEventListener("click", closeModal);
+
+  document.getElementById("modal-yes").addEventListener("click", async () => {
+    await hub.handleSwipe("yes");
+    renderMovie();
+    closeModal();
+  });
+  document.getElementById("modal-no").addEventListener("click", async () => {
+    await hub.handleSwipe("no");
+    renderMovie();
+    closeModal();
+  });
 }
 async function renderModal(movieId) {
   const $ = (id) => document.getElementById(id);
@@ -190,8 +203,10 @@ async function renderModal(movieId) {
   DOM.title.textContent = movie.release
     ? `${movie.title} (${movie.release.slice(0, 4)})`
     : movie.title;
-  DOM.genres.textContent = movie.genres.map((g) => g.name).join(", ");
-  DOM.runtime.textContent = `Runtime: ${Math.floor(movie.runtime / 60)}h ${
+
+  DOM.genres.textContent = movie.genres.map((g) => g.name).join(" ");
+
+  DOM.runtime.textContent = `🕑 ${Math.floor(movie.runtime / 60)}h ${
     movie.runtime % 60
   }m`;
   DOM.overview.textContent = movie.overview;
@@ -219,22 +234,25 @@ async function renderModal(movieId) {
   sorted.forEach((p) => {
     const container = document.createElement("div");
     container.className = "provider-container";
+
+    const providerCont = document.createElement("div");
+    providerCont.classList.add("logo-cont");
+
     const provider = document.createElement("p");
     provider.textContent = p.provider_name;
     const logo = document.createElement("img");
+
     const flag = document.createElement("img");
     flag.id = "modal-flag";
-    flag.src = `/assets/images/${p.region.toLowerCase()}.svg`;
-    flag.className = "provider-flag";
+    flag.src = `/assets/images/se.svg`;
 
     if (p.logo_path) {
       logo.src = path + p.logo_path;
     }
-
-    container.append(provider, logo, flag);
+    providerCont.append(logo, provider);
+    container.append(flag, providerCont);
     DOM.stream.append(container);
   });
-
   // DOM.stream.textContent =
   //   movie.providers?.SE?.flatrate.length || movie.providers?.SE?.free.length
 
@@ -252,6 +270,9 @@ async function renderModal(movieId) {
 function closeModal() {
   const modal = document.getElementById("movie-modal");
   const trailer = document.getElementById("modal-trailer");
+
+  document.querySelector(".no-btn").style.display = "block";
+  document.querySelector(".yes-btn").style.display = "block";
 
   modal.classList.add("hidden");
   if (trailer) trailer.src = "";

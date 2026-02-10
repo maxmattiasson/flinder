@@ -473,9 +473,11 @@ header nav a:active {
 #movie-modal {
   background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
-  top: 20px;
+  top: 10px;
+  overflow-y: auto;
   max-width: 550px;
-  height: 90vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   border-radius: 20px;
   padding: 10px;
 }
@@ -484,25 +486,8 @@ header nav a:active {
   aspect-ratio: 16 / 9;
   border-radius: 20px;
   border: 2px solid rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
 }
-#modal-title {
-  text-align: center;
-  font-weight: 600;
-}
-#modal-desc {
-  margin-top: 10px;
-  font-size: 0.9rem;
-}
-#modal-flag {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-}
-/* #modal-stream img {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-} */
 #close-modal-btn {
   position: absolute;
   top: 0px;
@@ -513,12 +498,49 @@ header nav a:active {
   font-size: 1.5rem;
   cursor: pointer;
 }
+#modal-title {
+  text-align: center;
+  font-weight: 600;
+}
+#modal-desc {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+#modal-stream {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+#modal-flag {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  filter: saturate(0.7);
+}
+
 .provider-container {
-  font-size: 0.7rem;
   display: flex;
   align-items: center;
-  gap: 10px;
   margin-top: 10px;
+  gap: 10px;
+
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 4px 10px;
+  width: fit-content;
+}
+.logo-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.provider-container p {
+  color: var(--txt-muted);
+  font-size: 0.6rem;
 }
 .provider-container img {
   width: 40px;
@@ -526,13 +548,33 @@ header nav a:active {
   border-radius: 10px;
 }
 
+#modal-yes,
+#modal-no {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  padding: 12px;
+  border-radius: 50%;
+  font-size: 2rem;
+  cursor: pointer;
+  position: absolute;
+  bottom: 32px;
+}
+#modal-yes {
+  left: 350px;
+}
+#modal-no {
+  left: 138px;
+}
+
+/* Profile page */
+
 .friend-code {
   font-family: "JetBrains Mono", monospace;
   font-optical-sizing: auto;
   font-weight: 200;
   font-style: normal;
 }
-
 /* Categories */
 
 .cat-btn {
