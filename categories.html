@@ -10,16 +10,18 @@
     <header>
       <h1><a href="index.html">Flinder</a></h1>
       <nav>
-        <a href="/app.html">Swipe</a>
-        <a href="/categories.html">Categories</a>
-        <a href="/library.html">Library</a>
         <a href="/profile.html" id="auth-state"></a>
       </nav>
     </header>
     <main>
-      <button class="cat-btn" id="popular">Popular</button>
-      <button class="cat-btn" id="top-rated">Top rated</button>
-      <button id="categories-start">Start swiping</button>
+      <div class="cat-cont">
+        <div class="cat-btn-cont">
+          <h3 id="cat-header">Pick a category</h3>
+          <button class="cat-btn" id="popular">Popular</button>
+          <button class="cat-btn" id="top-rated">Top rated</button>
+          <button id="categories-start">Start swiping</button>
+        </div>
+      </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>

@@ -186,6 +186,7 @@ async function renderModal(movieId) {
     closeBtn: $("close-modal-btn"),
   };
   const movie = await fetchMovieFull(movieId);
+  if (!movie) return;
   console.log(movie);
   DOM.title.textContent = movie.release
     ? `${movie.title} (${movie.release.slice(0, 4)})`
@@ -237,7 +238,16 @@ async function renderModal(movieId) {
     providerCont.classList.add("logo-cont");
 
     const provider = document.createElement("p");
-    provider.textContent = p.provider_name;
+
+    const providerMap = {
+      "Amazon Prime Video": "Amazon Prime",
+      "Apple TV Amazon Channel": "Apple TV+",
+    };
+
+    let name = providerMap[p.provider_name] || p.provider_name;
+
+    provider.textContent = name;
+
     const logo = document.createElement("img");
 
     const flag = document.createElement("img");
