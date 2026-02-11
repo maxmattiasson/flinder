@@ -471,23 +471,67 @@ header nav a:active {
 .hidden {
   display: none;
 }
+.modal {
+  display: none;
+}
+.modal.is-open {
+  display: grid;
+}
 #movie-modal {
+  gap: 12px;
   background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
-  top: 10px;
+  inset: 10px;
+  margin: 0 auto;
   overflow-y: auto;
+
   max-width: 550px;
-  min-height: 100vh;
-  min-height: 100dvh;
+  width: calc(100% - 20px);
+  max-height: calc(100dvh - 20px);
+
   border-radius: 20px;
   padding: 10px;
+
+  grid-template-areas:
+    "trailer trailer trailer"
+    "runtime title rating"
+    "desc desc desc"
+    "genres genres genres"
+    "stream stream stream"
+    "actions actions actions";
 }
 #modal-trailer {
+  grid-area: trailer;
+}
+#modal-title {
+  grid-area: title;
+  white-space: nowrap;
+}
+#modal-desc {
+  grid-area: desc;
+}
+#modal-genres {
+  grid-area: genres;
+}
+#modal-stream {
+  grid-area: stream;
+}
+.modal-actions {
+  grid-area: actions;
+}
+#modal-runtime {
+  grid-area: runtime;
+}
+#modal-rating-cont {
+  grid-area: rating;
+}
+
+#modal-trailer {
+  margin-top: 24px;
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 20px;
   border: 2px solid rgba(0, 0, 0, 0.15);
-  flex-shrink: 0;
 }
 #close-modal-btn {
   position: absolute;
@@ -502,42 +546,49 @@ header nav a:active {
 #modal-title {
   text-align: center;
   font-weight: 600;
+  align-self: center;
 }
-#modal-info-cont {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
+
+#modal-runtime {
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  white-space: nowrap;
+  align-self: center;
+  justify-self: start;
 }
 #modal-rating-cont {
   display: flex;
   gap: 4px;
-  align-items: flex-end;
+  justify-self: end;
+  align-self: center;
 }
 #modal-rating {
-  font-size: 1rem;
+  white-space: nowrap;
+  font-size: clamp(0.75rem, 2vw, 1rem);
 }
 #modal-vote-count {
+  white-space: nowrap;
+
   font-size: 0.44rem;
   color: var(--txt-muted);
 }
 #modal-genres {
-  font-size: 0.8rem;
+  font-size: clamp(0.75rem, 2vw, 1rem);
   display: flex;
   gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  white-space: nowrap;
 }
 #modal-genres p {
   background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  height: fit-content;
+  padding: 0px 4px;
+  backdrop-filter: blur(8px);
   font-size: 0.8rem;
   border-radius: 999px;
 }
 #modal-desc {
-  margin-top: 10px;
   font-size: 0.8rem;
 }
 #modal-stream {
@@ -546,6 +597,7 @@ header nav a:active {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  height: fit-content;
   gap: 20px;
 }
 #modal-flag {
@@ -597,24 +649,21 @@ header nav a:active {
 } */
 #modal-yes,
 #modal-no {
+  width: 55px;
+  height: 55px;
   padding: 6px;
-  border: none;
   background-color: rgba(255, 255, 255, 0.22);
   border: rgba(255, 255, 255, 0.195) 2px solid;
-  border-radius: 50%;
+  border-radius: 100%;
   font-size: 1.6rem;
   cursor: pointer;
-  position: absolute;
-  bottom: 32px;
 }
-
 #modal-yes {
-  left: 350px;
+  justify-self: start;
 }
 #modal-no {
-  left: 138px;
+  justify-self: end;
 }
-
 /* Profile page */
 
 .friend-code {
@@ -690,6 +739,46 @@ footer {
 }
 
 /* Media queries */
+@media (min-width: 768px) {
+  #movie-modal.modal {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "trailer trailer trailer"
+      "runtime title rating"
+      "desc desc desc"
+      "genres genres genres"
+      "stream stream stream"
+      "actions actions actions";
+    align-items: center;
+  }
+
+  #modal-runtime {
+    grid-area: runtime;
+  }
+  #modal-rating-cont {
+    grid-area: rating;
+  }
+  #modal-title {
+    text-align: center;
+  }
+}
+
+/* Actions */
+.modal-actions {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+}
+
+/* Close button floats without affecting grid */
+#close-modal-btn {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.26);
+  padding: 0px 6px;
+  border-radius: 10px;
+  top: 10px;
+  right: 10px;
+}
 
 @media (min-width: 600px) {
   .library-grid {
@@ -699,11 +788,5 @@ footer {
     grid-template-columns: repeat(auto-fit, minmax(20vw, 30vw));
     gap: 10px;
     width: 95vw;
-  }
-  .modal {
-    background-color: rgba(0, 0, 0, 0.9);
-    position: absolute;
-    height: 90vh;
-    width: 80vw;
   }
 }

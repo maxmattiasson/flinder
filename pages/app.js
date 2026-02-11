@@ -132,7 +132,7 @@ function loadListeners() {
     if (!card || !container.contains(card)) return;
 
     console.log("click");
-    document.getElementById("movie-modal").classList.remove("hidden");
+    document.getElementById("movie-modal").classList.add("is-open");
     document.querySelector(".yes-btn").style.display = "none";
     document.querySelector(".no-btn").style.display = "none";
     renderModal(card.dataset.id);
@@ -146,7 +146,7 @@ function loadListeners() {
   document.addEventListener("keydown", (e) => {
     if (
       e.key === "Escape" &&
-      !document.getElementById("movie-modal").classList.contains("hidden")
+      document.getElementById("movie-modal").classList.contains("is-open")
     ) {
       closeModal();
     }
@@ -191,6 +191,8 @@ async function renderModal(movieId) {
     ? `${movie.title} (${movie.release.slice(0, 4)})`
     : movie.title;
 
+  DOM.genres.innerHTML = "";
+
   movie.genres.forEach((el) => {
     const genre = document.createElement("p");
     genre.textContent = el.name;
@@ -199,7 +201,8 @@ async function renderModal(movieId) {
   });
 
   DOM.rating.textContent = `⭐ ${movie.rating.toFixed(1)}`;
-  DOM.voteCount.textContent = ` /10 (${movie.vote_count} votes)`;
+  // DOM.voteCount.textContent = ` /10 (${movie.vote_count} votes)`;
+  DOM.voteCount.textContent = ``;
 
   DOM.runtime.textContent = `🕑 ${Math.floor(movie.runtime / 60)}h ${
     movie.runtime % 60
@@ -260,10 +263,10 @@ function closeModal() {
   const modal = document.getElementById("movie-modal");
   const trailer = document.getElementById("modal-trailer");
 
-  document.querySelector(".no-btn").style.display = "block";
-  document.querySelector(".yes-btn").style.display = "block";
+  document.querySelector(".no-btn").style.display = "";
+  document.querySelector(".yes-btn").style.display = "";
 
-  modal.classList.add("hidden");
+  modal.classList.remove("is-open");
   if (trailer) trailer.src = "";
 }
 function handleRatingClick(e) {
