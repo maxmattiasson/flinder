@@ -60,12 +60,16 @@ async function getFriendCode() {
   return insertData.friend_code;
 }
 function renderProfile(friendCode) {
-  const main = document.querySelector("main");
+  const cont = document.querySelector(".profile-cont");
 
   const codeCont = document.createElement("div");
-  codeCont.textContent = `Your code: ${friendCode}`;
+  codeCont.textContent = "Your friendcode: ";
+  const span = document.createElement("span");
+  span.textContent = friendCode;
+  span.classList.add("code-span");
   codeCont.classList.add("friend-code");
-  main.append(codeCont);
+  codeCont.append(span);
+  cont.append(codeCont);
 }
 async function handleAddFriend() {
   const infoField = document.getElementById("add-info");
@@ -191,7 +195,7 @@ function addListeners() {
 async function renderFriendsList(friendCodes) {
   const container = document.getElementById("friends-list");
 
-  container.textContent = "Friendslist";
+  container.textContent = "Friends ❤️‍🔥";
 
   const list = friendCodes ?? [];
   if (!list.length) {
@@ -253,6 +257,6 @@ async function renderDisplayName() {
   if (displayName === null) {
     nameElement.textContent = "Your name";
   } else {
-    nameElement.textContent = displayName;
+    nameElement.textContent = `Welcome, ${displayName}!`;
   }
 }

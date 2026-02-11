@@ -17,44 +17,49 @@
       <h1><a href="index.html">Flinder</a></h1>
       <nav>
         <a href="/app.html">Swipe</a>
-        <a href="/categories.html">Categories</a>
-        <a href="/library.html">Library</a>
         <a href="/profile.html" id="auth-state"></a>
       </nav>
     </header>
     <main>
-      <form id="add-cont">
-        <label for="add-input">Add friend</label>
-        <input
-          id="add-input"
-          name="add"
-          type="text"
-          maxlength="4"
-          minlength="4"
-          placeholder="Enter friend code"
-        />
-        <button type="submit" id="add-btn">Add</button>
-        <p id="add-info"></p>
-      </form>
-      <div id="friends-list"></div>
-      <div id="display-name-cont">
-        <p id="display-name"></p>
-        <button id="edit-name-btn">Change</button>
-      </div>
-      <dialog id="change-name">
-        <form id="change-name-form">
-          <label for="input-display-name">Choose your name</label>
-          <input
-            id="input-display-name"
-            type="text"
-            maxlength="12"
-            minlength="2"
-          />
-          <p id="name-change-info"></p>
-          <button id="submit-name" type="submit">Save</button>
-          <button id="cancel-name" type="button">Cancel</button>
-        </form>
-      </dialog>
+      <section class="social-page">
+        <div class="profile-cont">
+          <div id="display-name-cont">
+            <p id="display-name"></p>
+            <button id="edit-name-btn">Change</button>
+          </div>
+          <dialog id="change-name">
+            <form id="change-name-form">
+              <label for="input-display-name">Choose your name</label>
+              <input
+                id="input-display-name"
+                type="text"
+                maxlength="12"
+                minlength="2"
+              />
+              <p id="name-change-info"></p>
+              <button id="submit-name" type="submit">Save</button>
+              <button id="cancel-name" type="button">Cancel</button>
+            </form>
+          </dialog>
+        </div>
+
+        <div class="friendslist-cont">
+          <div id="friends-list"></div>
+          <form id="add-cont">
+            <label for="add-input">+</label>
+            <input
+              id="add-input"
+              name="add"
+              type="text"
+              maxlength="4"
+              minlength="4"
+              placeholder="Add a friend"
+            />
+            <button type="submit" id="add-btn">+</button>
+            <p id="add-info"></p>
+          </form>
+        </div>
+      </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
