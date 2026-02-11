@@ -395,6 +395,7 @@ header nav a:active {
 }
 .rating-toggle {
   color: var(--txt-muted);
+  font-size: 0.6rem;
 }
 .genre-cont {
   display: flex;
@@ -502,6 +503,39 @@ header nav a:active {
   text-align: center;
   font-weight: 600;
 }
+#modal-info-cont {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+}
+#modal-rating-cont {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+}
+#modal-rating {
+  font-size: 1rem;
+}
+#modal-vote-count {
+  font-size: 0.44rem;
+  color: var(--txt-muted);
+}
+#modal-genres {
+  font-size: 0.8rem;
+  display: flex;
+  gap: 10px;
+}
+#modal-genres p {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.8rem;
+  border-radius: 999px;
+}
 #modal-desc {
   margin-top: 10px;
   font-size: 0.8rem;
@@ -509,6 +543,7 @@ header nav a:active {
 #modal-stream {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 20px;
@@ -548,7 +583,7 @@ header nav a:active {
   border-radius: 10px;
 }
 
-#modal-yes,
+/* #modal-yes,
 #modal-no {
   border: none;
   background-color: rgba(255, 255, 255, 0.12);
@@ -559,7 +594,20 @@ header nav a:active {
   cursor: pointer;
   position: absolute;
   bottom: 32px;
+} */
+#modal-yes,
+#modal-no {
+  padding: 6px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.22);
+  border: rgba(255, 255, 255, 0.195) 2px solid;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  cursor: pointer;
+  position: absolute;
+  bottom: 32px;
 }
+
 #modal-yes {
   left: 350px;
 }

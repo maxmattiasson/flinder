@@ -5,6 +5,8 @@ import {
 } from "../api/movies.js";
 import { MovieHub } from "../hub/MovieHub.js";
 import { getActiveCategory } from "./categories.js";
+import { renderRating } from "../utils/appRender/renderRating.js";
+import { renderGenre } from "../utils/appRender/renderGenre.js";
 
 let hub;
 let genreList = [];
@@ -57,22 +59,7 @@ function renderMovie() {
 
   renderBackdrop(movie, path);
 
-  const rating = document.createElement("p");
-  rating.classList.add("rating-app");
-  rating.style.marginLeft = "10px";
-  rating.textContent = "⭐ " + movie.vote_average.toFixed(1);
-
-  const ratingHelpSpan = document.createElement("span");
-  ratingHelpSpan.textContent = " /10";
-  ratingHelpSpan.style.fontSize = "0.6rem";
-  ratingHelpSpan.classList.add("hidden", "rating-toggle");
-  rating.append(ratingHelpSpan);
-
-  const ratingSpan = document.createElement("span");
-  ratingSpan.textContent = ` (${movie.vote_count} votes)`;
-  ratingSpan.style.fontSize = "0.6rem";
-  ratingSpan.classList.add("hidden", "rating-toggle");
-  rating.append(ratingSpan);
+  const rating = renderRating(movie);
 
   // const desc = document.createElement("p");
   // desc.classList.add("desc-cont");
@@ -204,7 +191,15 @@ async function renderModal(movieId) {
     ? `${movie.title} (${movie.release.slice(0, 4)})`
     : movie.title;
 
-  DOM.genres.textContent = movie.genres.map((g) => g.name).join(" ");
+  movie.genres.forEach((el) => {
+    const genre = document.createElement("p");
+    genre.textContent = el.name;
+
+    DOM.genres.append(genre);
+  });
+
+  DOM.rating.textContent = `⭐ ${movie.rating.toFixed(1)}`;
+  DOM.voteCount.textContent = ` /10 (${movie.vote_count} votes)`;
 
   DOM.runtime.textContent = `🕑 ${Math.floor(movie.runtime / 60)}h ${
     movie.runtime % 60
@@ -249,18 +244,12 @@ async function renderModal(movieId) {
     if (p.logo_path) {
       logo.src = path + p.logo_path;
     }
+
     providerCont.append(logo, provider);
     container.append(flag, providerCont);
     DOM.stream.append(container);
   });
-  // DOM.stream.textContent =
-  //   movie.providers?.SE?.flatrate.length || movie.providers?.SE?.free.length
 
-  //    providers: {
-  // SE: {
-  //   flatrate: [...(providersData?.results?.SE?.flatrate ?? [])],
-  //   free: [...(providersData?.results?.SE?.free ?? [])],
-  // },
   // GB: {
   //   flatrate: [...(providersData?.results?.GB?.flatrate ?? [])],
   //   free: [...(providersData?.results?.GB?.free ?? [])],
