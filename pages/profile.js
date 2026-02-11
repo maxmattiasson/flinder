@@ -6,6 +6,11 @@ import { getFriendsForUI } from "../helpers/getFriendsCode.js";
 let infoId;
 
 export async function initProfile() {
+  const user = await getAuthState();
+  if (!user) {
+    return;
+  }
+
   const friendCode = await getFriendCode();
   renderProfile(friendCode);
   const friendCodes = await getFriendsForUI();
@@ -68,7 +73,18 @@ function renderProfile(friendCode) {
   span.textContent = friendCode;
   span.classList.add("code-span");
   codeCont.classList.add("friend-code");
-  codeCont.append(span);
+
+  const copyBtn = document.createElement("button");
+  copyBtn.textContent = "Copy";
+  copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(friendCode);
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => {
+      copyBtn.textContent = "Copy";
+    }, 2000);
+  });
+
+  codeCont.append(span, copyBtn);
   cont.append(codeCont);
 }
 async function handleAddFriend() {
@@ -257,6 +273,6 @@ async function renderDisplayName() {
   if (displayName === null) {
     nameElement.textContent = "Your name";
   } else {
-    nameElement.textContent = `Welcome, ${displayName}!`;
+    nameElement.textContent = `${displayName}`;
   }
 }

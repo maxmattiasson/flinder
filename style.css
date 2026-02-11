@@ -678,21 +678,66 @@ header nav a:active {
   max-width: 550px;
 }
 .profile-cont {
-  background-color: rgba(255, 255, 255, 0.12);
   max-width: 550px;
   width: 100%;
   border-radius: 20px;
+  padding: 20px;
 }
-
+#display-name-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+#display-name {
+  font-size: 2rem;
+  font-weight: 600;
+}
+#display-name-cont button {
+  border: none;
+  background-color: #ff8c42;
+  border: 2px solid var(--surface);
+  color: var(--surface);
+  height: 40px;
+  width: 80px;
+  border-radius: 20px;
+  cursor: pointer;
+}
 .friend-code {
   color: var(--txt-muted);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 .code-span {
   font-family: "JetBrains Mono", monospace;
   font-optical-sizing: auto;
   font-weight: 200;
   font-style: normal;
+  background-color: var(--surface);
+  border: 5px solid rgba(0, 0, 0);
+  padding: 10px;
 }
+.friend-code button {
+  background-color: var(--surface);
+  color: var(--txt-muted);
+  border: 1px solid white;
+  font-size: 0.8rem;
+  height: 40px;
+  width: 80px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.friendslist-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  background: var(--txt-muted);
+}
+
 /* Categories */
 
 .cat-cont {
