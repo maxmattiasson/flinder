@@ -195,7 +195,7 @@ function addListeners() {
 async function renderFriendsList(friendCodes) {
   const container = document.getElementById("friends-list");
 
-  container.textContent = "Friends ❤️‍🔥";
+  container.textContent = "Friends";
 
   const list = friendCodes ?? [];
   if (!list.length) {

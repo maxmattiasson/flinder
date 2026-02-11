@@ -20,18 +20,19 @@ export async function renderAuthState(containerSelector = "#auth-state") {
   const userCont = document.createElement("span");
 
   if (user) {
-    // const logOutBtn = document.createElement("button");
-    // logOutBtn.textContent = "Logout";
-    // logOutBtn.addEventListener("click", async () => {
-    //   await supabase.auth.signOut();
-    //   renderAuthState(containerSelector);
+    const logOutBtn = document.createElement("button");
+    logOutBtn.textContent = "Logout";
+    logOutBtn.addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      await renderAuthState();
+    });
 
     userCont.textContent = displayName;
     const icon = document.createElement("iconify-icon");
     icon.setAttribute("icon", "ph:user-circle-fill");
     icon.style.fontSize = "32px";
 
-    container.append(userCont, icon);
+    container.append(userCont, icon, logOutBtn);
   } else {
     userCont.textContent = "Guest";
 
