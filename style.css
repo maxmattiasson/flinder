@@ -683,37 +683,47 @@ header nav a:active {
   max-width: 550px;
 }
 .profile-cont {
-  max-width: 550px;
-  width: 100%;
   border-radius: 20px;
   padding: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow-dark), var(--shadow-light);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 #display-name-cont {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  width: 300px;
 }
 #display-name {
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 600;
+  color: var(--txt);
+  margin: 0;
 }
-#display-name-cont button {
-  background-color: var(--surface);
-  color: var(--txt-muted);
-  height: 40px;
-  width: 80px;
-  border-radius: 20px;
+#display-name-cont button,
+.friend-code button {
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  color: var(--txt);
+  padding: 8px 14px;
+  border-radius: 14px;
   cursor: pointer;
+}
+#edit-name-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
 }
 
 .friend-code {
   color: var(--txt-muted);
-  padding: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 .code-span {
   font-family: "JetBrains Mono", monospace;
@@ -722,15 +732,7 @@ header nav a:active {
   font-style: normal;
   padding: 10px;
 }
-.friend-code button {
-  background-color: var(--surface);
-  color: var(--txt-muted);
-  font-size: 0.8rem;
-  height: 40px;
-  width: 80px;
-  border-radius: 20px;
-  cursor: pointer;
-}
+
 /* OH NO test test */
 .friendslist-cont {
   background: var(--surface);
@@ -744,15 +746,16 @@ header nav a:active {
 #friends-list {
   display: flex;
   flex-direction: column;
+  font-size: 1.2rem;
   gap: 8px;
   max-height: 200px;
-  overflow-y: auto;
   padding-right: 4px;
 }
 #add-cont {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-top: 50px;
 }
 #add-input {
   flex: 1;
@@ -806,30 +809,79 @@ header nav a:active {
 }
 /* TESTING ABOVE THIS  */
 /* form below */
+
 #change-name {
-  border-radius: 30px;
+  background: var(--surface);
+  color: var(--txt);
+  border: none;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  max-width: 320px;
+  width: 90vw;
 }
-#change-name input {
-  padding: 6px;
-  border-radius: 10px;
+#change-name::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
 }
-#change-name form {
-  padding: 10px;
+#change-name-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  background-color: var(--accent);
+  gap: 14px;
 }
-#change-name button {
-  border-radius: 30px;
-  padding: 5px;
+#input-display-name {
+  background: var(--surface);
+  color: var(--txt);
   border: none;
-  color: var(--txt-muted);
-  background-color: var(--surface);
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: var(--inset-dark), var(--inset-light);
+  font-size: 0.95rem;
 }
+
+#input-display-name::placeholder {
+  color: var(--txt-muted);
+}
+
+#input-display-name:focus {
+  outline: 2px solid var(--accent);
+}
+#name-change-info {
+  font-size: 0.85rem;
+  color: var(--txt-muted);
+  min-height: 1.2em;
+}
+#change-name-form > div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 #submit-name {
-  background-color: #ff9d5c;
-  padding: 4px 8px;
+  background: var(--accent);
+  color: var(--surface);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+#submit-name:hover {
+  background: var(--accent-hover);
+  transform: scale(1.04);
+}
+
+#cancel-name {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--txt);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+#cancel-name:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 /* Categories */
 

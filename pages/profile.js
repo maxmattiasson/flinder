@@ -68,7 +68,7 @@ function renderProfile(friendCode) {
   const cont = document.querySelector(".profile-cont");
 
   const codeCont = document.createElement("div");
-  codeCont.textContent = "Your friendcode: ";
+  codeCont.textContent = "Your friendcode ";
   const span = document.createElement("span");
   span.textContent = friendCode;
   span.classList.add("code-span");
