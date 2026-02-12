@@ -595,6 +595,7 @@ header nav a:active {
   max-width: 300px;
   justify-self: center;
 }
+
 #modal-stream {
   display: flex;
   flex-direction: row;
