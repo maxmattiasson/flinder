@@ -481,7 +481,7 @@ header nav a:active {
 }
 #movie-modal {
   gap: 12px;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.95);
   position: fixed;
   inset: 10px;
   margin: 0 auto;
@@ -496,7 +496,7 @@ header nav a:active {
 
   grid-template-areas:
     "trailer trailer trailer"
-    "runtime title rating"
+    "rating title runtime"
     "desc desc desc"
     "genres genres genres"
     "stream stream stream"
@@ -551,7 +551,7 @@ header nav a:active {
 }
 
 #modal-runtime {
-  font-size: clamp(0.75rem, 2vw, 1rem);
+  font-size: clamp(0.75rem, 1.8vw, 1rem);
   white-space: nowrap;
   align-self: center;
   justify-self: start;
@@ -565,7 +565,7 @@ header nav a:active {
 }
 #modal-rating {
   white-space: nowrap;
-  font-size: clamp(0.75rem, 2vw, 1rem);
+  font-size: clamp(0.75rem, 1.8vw, 1rem);
   max-width: 80px;
 }
 #modal-vote-count {
@@ -584,16 +584,18 @@ header nav a:active {
 #modal-genres p {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  height: fit-content;
-  padding: 4px 8px;
+  padding: 0px 4px;
+  color: var(--txt-muted);
   backdrop-filter: blur(8px);
+  height: fit-content;
   font-size: 0.8rem;
   border-radius: 999px;
 }
 #modal-desc {
   font-size: 0.8rem;
-  max-width: 300px;
+  max-width: 350px;
   justify-self: center;
+  color: var(--txt-muted);
 }
 
 #modal-stream {
@@ -697,15 +699,14 @@ header nav a:active {
   font-weight: 600;
 }
 #display-name-cont button {
-  border: none;
-  background-color: #ff8c42;
-  border: 2px solid var(--surface);
-  color: var(--surface);
+  background-color: var(--surface);
+  color: var(--txt-muted);
   height: 40px;
   width: 80px;
   border-radius: 20px;
   cursor: pointer;
 }
+
 .friend-code {
   color: var(--txt-muted);
   padding: 20px;
@@ -719,28 +720,117 @@ header nav a:active {
   font-optical-sizing: auto;
   font-weight: 200;
   font-style: normal;
-  background-color: var(--surface);
-  border: 5px solid rgba(0, 0, 0);
   padding: 10px;
 }
 .friend-code button {
   background-color: var(--surface);
   color: var(--txt-muted);
-  border: 1px solid white;
   font-size: 0.8rem;
   height: 40px;
   width: 80px;
   border-radius: 20px;
   cursor: pointer;
 }
+/* OH NO test test */
 .friendslist-cont {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow-dark), var(--shadow-light);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  background: var(--txt-muted);
+  gap: 16px;
+}
+#friends-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+#add-cont {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#add-input {
+  flex: 1;
+  background: var(--surface);
+  color: var(--txt);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: var(--inset-dark), var(--inset-light);
+  font-size: 0.95rem;
 }
 
+#add-input::placeholder {
+  color: var(--txt-muted);
+}
+
+#add-input:focus {
+  outline: 2px solid var(--accent);
+}
+#add-btn {
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 1rem;
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#add-btn:hover {
+  background: var(--accent-hover);
+  transform: scale(1.05);
+}
+#add-cont label {
+  font-weight: 600;
+  color: var(--txt-muted);
+}
+#add-info {
+  font-size: 0.85rem;
+  color: var(--txt-muted);
+  margin-top: 6px;
+}
+.friend-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  color: var(--txt);
+}
+/* TESTING ABOVE THIS  */
+/* form below */
+#change-name {
+  border-radius: 30px;
+}
+#change-name input {
+  padding: 6px;
+  border-radius: 10px;
+}
+#change-name form {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--accent);
+}
+#change-name button {
+  border-radius: 30px;
+  padding: 5px;
+  border: none;
+  color: var(--txt-muted);
+  background-color: var(--surface);
+}
+#submit-name {
+  background-color: #ff9d5c;
+  padding: 4px 8px;
+}
 /* Categories */
 
 .cat-cont {
@@ -840,7 +930,7 @@ footer {
     grid-template-columns: auto 1fr auto;
     grid-template-areas:
       "trailer trailer trailer"
-      "runtime title rating"
+      "rating title runtime"
       "desc desc desc"
       "genres genres genres"
       "stream stream stream"
@@ -853,6 +943,7 @@ footer {
   }
   #modal-rating-cont {
     grid-area: rating;
+    margin-left: 24px;
   }
   #modal-title {
     text-align: center;

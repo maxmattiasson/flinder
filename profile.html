@@ -30,16 +30,19 @@
           </div>
           <dialog id="change-name">
             <form id="change-name-form">
-              <label for="input-display-name">Choose your name</label>
+              <label for="input-display-name"></label>
               <input
                 id="input-display-name"
                 type="text"
                 maxlength="12"
                 minlength="2"
+                placeholder="New name"
               />
               <p id="name-change-info"></p>
-              <button id="submit-name" type="submit">Save</button>
-              <button id="cancel-name" type="button">Cancel</button>
+              <div>
+                <button id="submit-name" type="submit">Save</button>
+                <button id="cancel-name" type="button">Cancel</button>
+              </div>
             </form>
           </dialog>
         </div>
@@ -47,7 +50,7 @@
         <div class="friendslist-cont">
           <div id="friends-list"></div>
           <form id="add-cont">
-            <label for="add-input">+</label>
+            <label for="add-input">💕</label>
             <input
               id="add-input"
               name="add"
