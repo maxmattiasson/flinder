@@ -592,6 +592,8 @@ header nav a:active {
 }
 #modal-desc {
   font-size: 0.8rem;
+  max-width: 300px;
+  justify-self: center;
 }
 #modal-stream {
   display: flex;
