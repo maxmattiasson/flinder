@@ -30,8 +30,9 @@ export async function initLibrary() {
   console.log("Frienddata:", friendData);
   renderCount(data);
   renderLibrary(data);
-
-  renderMatchedLibrary(friendData);
+  const matches = groupMatchesByPartner(friendData);
+  console.log(matches);
+  renderMatchedLibrary(matches);
   addListeners();
 }
 function renderLibrary(data) {
@@ -40,6 +41,7 @@ function renderLibrary(data) {
 
   const movieCont = document.createElement("div");
   movieCont.classList.add("library-grid");
+  movieCont.id = "my-library-grid";
 
   data.forEach((movie) => {
     const card = document.createElement("div");
@@ -72,7 +74,7 @@ function renderCount(dataOptional) {
   const count = document.createElement("span");
 
   if (dataOptional === undefined) {
-    const cards = document.querySelectorAll(".library-card");
+    const cards = document.querySelectorAll("#my-library-grid .library-card");
     count.textContent = ` (${cards.length})`;
   } else {
     count.textContent = ` (${dataOptional.length})`;
@@ -82,39 +84,77 @@ function renderCount(dataOptional) {
 }
 
 function addListeners() {
-  const container = document.querySelector(".library-grid");
+  const container = document.querySelector("#my-library-grid");
+  if (!container) return;
+
   container.addEventListener("click", async (e) => {
-    if (e.target.matches(".delete-library-card")) {
-      const card = e.target.closest(".library-card");
-      let movieId = card.dataset.movieId;
-      deleteYesVote(movieId);
-      card.remove();
-      renderCount();
-    }
+    if (!e.target.matches(".delete-library-card")) return;
+
+    const card = e.target.closest(".library-card");
+    if (!card) return;
+
+    let movieId = card.dataset.movieId;
+    await deleteYesVote(movieId);
+
+    card.remove();
+    renderCount();
   });
 }
-async function renderMatchedLibrary(data) {
-  // Reduce ?? to put create the right amount of libs and put them in the right place?
-  // clean up UI
-  const container = document.createElement("div");
-  container.id = "matched-library";
-  const friendTitle = document.createElement("h3");
-  friendTitle.textContent = "Friends' Matches";
-  container.prepend(friendTitle);
+async function renderMatchedLibrary(matches) {
+  if (matches.length === 0) {
+    const bigwrappa = document.createElement("div");
+    bigwrappa.textContent = "No matches with friends yet.";
+    document.querySelector("main").append(bigwrappa);
+    return;
+  }
+
   const path = "https://image.tmdb.org/t/p/w500/";
 
-  data.forEach((movie) => {
-    const card = document.createElement("div");
-    card.classList.add("library-card");
+  matches.forEach((match) => {
+    const wrapper = document.createElement("div");
 
-    const posterCont = document.createElement("div");
-    const poster = document.createElement("img");
-    poster.classList.add("library-poster");
-    poster.src = path + movie.poster_url;
+    const container = document.createElement("div");
+    container.classList.add("library-grid");
 
-    posterCont.append(poster);
-    card.append(posterCont);
-    container.append(card);
+    const friendTitle = document.createElement("h4");
+    friendTitle.textContent = `Matches with ${match.partner_display_name} (${match.movies.length})`;
+
+    for (const movie of match.movies) {
+      const card = document.createElement("div");
+      card.classList.add("library-card");
+      card.dataset.movieId = movie.movie_id;
+
+      const posterCont = document.createElement("div");
+      const poster = document.createElement("img");
+      poster.classList.add("library-poster");
+      poster.src = path + movie.poster_url;
+
+      posterCont.append(poster);
+      card.append(posterCont);
+      container.append(card);
+    }
+    wrapper.append(friendTitle, container);
+    document.querySelector("main").append(wrapper);
   });
-  document.querySelector("main").append(container);
+}
+
+function groupMatchesByPartner(matches) {
+  const groups = new Map();
+
+  for (const m of matches) {
+    let g = groups.get(m.partner_id);
+    if (!g) {
+      g = {
+        partner_id: m.partner_id,
+        partner_display_name:
+          m.partner_display_name || `#${m.partner_friend_code}`,
+        partner_friend_code: m.partner_friend_code,
+        movies: [],
+      };
+      groups.set(m.partner_id, g);
+    }
+    g.movies.push(m);
+  }
+
+  return Array.from(groups.values());
 }
