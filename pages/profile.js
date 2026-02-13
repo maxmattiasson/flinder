@@ -12,7 +12,7 @@ export async function initProfile() {
     const input = document.getElementById("add-input");
     const friendCont = document.querySelector(".friendslist-cont");
     document.getElementById("add-btn").disabled = true;
-    friendCont.textContent = "Here would your friends be if you had any";
+    friendCont.textContent = "Here would your friends be if you had any ";
     cont.textContent = "Sign in to see your profile";
     input.disabled = true;
     return;
@@ -23,6 +23,7 @@ export async function initProfile() {
   const friendCodes = await getFriendsForUI();
   renderFriendsList(friendCodes);
   await renderDisplayName();
+
   addListeners();
 }
 
@@ -81,6 +82,14 @@ function renderProfile(friendCode) {
   span.classList.add("code-span");
   codeCont.classList.add("friend-code");
 
+  const logOutBtn = document.createElement("button");
+  logOutBtn.textContent = "Logout";
+  logOutBtn.classList.add("logout-button");
+  logOutBtn.addEventListener("click", async () => {
+    await supabase.auth.signOut();
+    await renderAuthState();
+  });
+
   const copyBtn = document.createElement("button");
   copyBtn.textContent = "Copy";
   copyBtn.addEventListener("click", () => {
@@ -92,7 +101,7 @@ function renderProfile(friendCode) {
   });
 
   codeCont.append(span, copyBtn);
-  cont.append(codeCont);
+  cont.append(codeCont, logOutBtn);
 }
 async function handleAddFriend() {
   const infoField = document.getElementById("add-info");

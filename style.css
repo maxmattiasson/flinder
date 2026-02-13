@@ -350,6 +350,7 @@ header nav a:active {
 }
 .category-app {
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .yes-btn {
@@ -770,7 +771,15 @@ header nav a:active {
   background: rgba(255, 255, 255, 0.12);
   transform: translateY(-1px);
 }
+.logout-button {
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
 
+.logout-button:hover {
+  transform: translateY(-1px);
+}
 /* OH NO test test */
 .friendslist-cont {
   background: var(--surface);

@@ -32,7 +32,7 @@ export async function renderAuthState(containerSelector = "#auth-state") {
     icon.setAttribute("icon", "ph:user-circle-fill");
     icon.style.fontSize = "32px";
 
-    container.append(userCont, icon, logOutBtn);
+    container.append(userCont, icon);
   } else {
     userCont.textContent = "Guest";
 
