@@ -8,6 +8,13 @@ let infoId;
 export async function initProfile() {
   const user = await getAuthState();
   if (!user) {
+    const cont = document.getElementById("display-name-cont");
+    const input = document.getElementById("add-input");
+    const friendCont = document.querySelector(".friendslist-cont");
+    document.getElementById("add-btn").disabled = true;
+    friendCont.textContent = "Here would your friends be if you had any";
+    cont.textContent = "Sign in to see your profile";
+    input.disabled = true;
     return;
   }
 
