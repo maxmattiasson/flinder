@@ -20,12 +20,12 @@ export async function renderAuthState(containerSelector = "#auth-state") {
   const userCont = document.createElement("span");
 
   if (user) {
-    const logOutBtn = document.createElement("button");
-    logOutBtn.textContent = "Logout";
-    logOutBtn.addEventListener("click", async () => {
-      await supabase.auth.signOut();
-      await renderAuthState();
-    });
+    // const logOutBtn = document.createElement("button");
+    // logOutBtn.textContent = "Logout";
+    // logOutBtn.addEventListener("click", async () => {
+    //   await supabase.auth.signOut();
+    //   await renderAuthState();
+    // });
 
     userCont.textContent = displayName;
     const icon = document.createElement("iconify-icon");

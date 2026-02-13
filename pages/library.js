@@ -101,17 +101,24 @@ function addListeners() {
   });
 }
 async function renderMatchedLibrary(matches) {
+  document.querySelector("#matched-library")?.remove();
+
+  const main = document.querySelector("main");
+  const section = document.createElement("section");
+  section.id = "matched-library";
+
   if (matches.length === 0) {
-    const bigwrappa = document.createElement("div");
-    bigwrappa.textContent = "No matches with friends yet.";
-    document.querySelector("main").append(bigwrappa);
+    section.textContent = "No matches with friends yet.";
+    main.append(section);
     return;
   }
 
   const path = "https://image.tmdb.org/t/p/w500/";
+  const frag = document.createDocumentFragment();
 
   matches.forEach((match) => {
     const wrapper = document.createElement("div");
+    wrapper.classList.add("match-wrapper");
 
     const container = document.createElement("div");
     container.classList.add("library-grid");
@@ -134,8 +141,10 @@ async function renderMatchedLibrary(matches) {
       container.append(card);
     }
     wrapper.append(friendTitle, container);
-    document.querySelector("main").append(wrapper);
+    frag.append(wrapper);
   });
+  section.append(frag);
+  main.append(section);
 }
 
 function groupMatchesByPartner(matches) {
