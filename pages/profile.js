@@ -2,6 +2,7 @@ import { getAuthState } from "../api/auth.js";
 import { supabase } from "../api/supabase.js";
 import { getYesVotes } from "../api/votes.js";
 import { getFriendsForUI } from "../helpers/getFriendsCode.js";
+import { renderAuthState } from "../api/auth.js";
 
 let infoId;
 
@@ -88,6 +89,7 @@ function renderProfile(friendCode) {
   logOutBtn.addEventListener("click", async () => {
     await supabase.auth.signOut();
     await renderAuthState();
+    initProfile();
   });
 
   const copyBtn = document.createElement("button");
