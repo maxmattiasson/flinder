@@ -18,13 +18,12 @@ const page = path === "/" ? "index" : path.split("/").pop();
 
 const isPage = (name) => page === name || page === `${name}.html`;
 
-if (isPage("login")) {
-  initLogin();
-} else if (isPage("signup")) {
+if (isPage("signup")) {
   initSignup();
 } else if (isPage("index")) {
   if (user) window.location.href = "/app";
   else initIndex();
+  initLogin();
 } else if (isPage("app")) {
   initApp();
 } else if (isPage("categories")) {
