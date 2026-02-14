@@ -14,27 +14,25 @@ const user = await getAuthState();
 renderAuthState();
 
 const path = window.location.pathname;
+const page = path === "/" ? "index" : path.split("/").pop();
 
-if (path.endsWith("login.html")) {
+const isPage = (name) => page === name || page === `${name}.html`;
+
+if (isPage("login")) {
   initLogin();
-} else if (path.endsWith("signup.html")) {
+} else if (isPage("signup")) {
   initSignup();
-} else if (path.endsWith("index.html") || path === "/") {
-  if (user) {
-    window.location.href = "app.html";
-  } else {
-    initIndex();
-    initLogin();
-  }
-} else if (path.endsWith("app.html")) {
+} else if (isPage("index")) {
+  if (user) window.location.href = "/app";
+  else initIndex();
+} else if (isPage("app")) {
   initApp();
-} else if (path.endsWith("categories.html")) {
+} else if (isPage("categories")) {
   initCategories();
-  document.querySelector("#categories-start").addEventListener("click", () => {
-    window.location.href = "app.html";
-  });
-} else if (path.endsWith("profile.html")) {
+  const btn = document.querySelector("#categories-start");
+  if (btn) btn.addEventListener("click", () => (window.location.href = "/app"));
+} else if (isPage("profile")) {
   initProfile();
-} else if (path.endsWith("library.html")) {
+} else if (isPage("library")) {
   initLibrary();
 }

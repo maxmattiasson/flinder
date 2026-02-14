@@ -168,7 +168,7 @@ header nav a:active {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: clamp(50px, 380px, 500px);
+  width: clamp(50px, 320px, 500px);
 }
 #login-form input {
   padding: 5px;
