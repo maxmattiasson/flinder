@@ -1,4 +1,4 @@
-import { API } from "./config";
+import { API } from "./config.js";
 
 const categoryMapper = {
   popular: "movies",
