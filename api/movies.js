@@ -1,3 +1,5 @@
+import { API } from "./config";
+
 const categoryMapper = {
   popular: "movies",
   "top-rated": "topRated",
@@ -9,9 +11,7 @@ export async function fetchMovies(page, category) {
     throw new Error(`Unknown category: ${category}`);
   }
   try {
-    const res = await fetch(
-      `http://localhost:4000/api/${endpoint}?page=${page}`
-    );
+    const res = await fetch(`${API}/${endpoint}?page=${page}`);
     const data = await res.json();
     return data;
   } catch (err) {
@@ -20,9 +20,7 @@ export async function fetchMovies(page, category) {
 }
 export async function fetchMovieDetails(movie_id) {
   try {
-    const res = await fetch(
-      `http://localhost:4000/api/movieDetails/${movie_id}`
-    );
+    const res = await fetch(`${API}/movieDetails/${movie_id}`);
     if (!res.ok) throw new Error("Could not fetch movie details", res.status);
     const data = await res.json();
     return data;
@@ -32,7 +30,7 @@ export async function fetchMovieDetails(movie_id) {
 }
 export async function fetchMovieFull(movie_id) {
   try {
-    const res = await fetch(`http://localhost:4000/api/movieFull/${movie_id}`);
+    const res = await fetch(`${API}/movieFull/${movie_id}`);
     if (!res.ok) throw new Error("Could not fetch movie details", res.status);
     const data = await res.json();
     return data.movie;
@@ -42,7 +40,7 @@ export async function fetchMovieFull(movie_id) {
 }
 export async function fetchGenres() {
   try {
-    const res = await fetch(`http://localhost:4000/api/genres`);
+    const res = await fetch(`${API}/genres`);
     const data = await res.json();
     console.log(data);
     return data;
