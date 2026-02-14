@@ -1,6 +1,6 @@
 export const API_BASE =
-  location.hostname === "localhost" || location.hostname === "127.0.0.1"
+  location.hostname === "localhost"
     ? "http://localhost:3000"
-    : "https://lolguesser-backend.onrender.com";
+    : "https://api.lolgiss.com";
 
 export const API = `${API_BASE}/api/flinder`;
