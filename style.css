@@ -524,6 +524,7 @@ header nav a:active {
   inset: 10px;
   margin: 0 auto;
   overflow-y: auto;
+  z-index: 99999;
 
   max-width: 550px;
   width: calc(100% - 20px);
@@ -1163,5 +1164,8 @@ footer {
   }
   #close-modal-btn:hover {
     color: black;
+  }
+  #movie-modal {
+    max-width: 750px;
   }
 }

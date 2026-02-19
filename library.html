@@ -16,6 +16,21 @@
     </header>
     <main id="library-main">
       <h3 id="library-h3">Library</h3>
+      <div id="movie-modal" class="modal hidden">
+        <iframe id="modal-trailer" allowfullscreen></iframe>
+        <div id="modal-runtime"></div>
+        <div id="modal-title"></div>
+        <div id="modal-rating-cont">
+          <div id="modal-rating"></div>
+          <div id="modal-vote-count"></div>
+        </div>
+
+        <div id="modal-desc"></div>
+        <div id="modal-genres"></div>
+
+        <div id="modal-stream"></div>
+        <button id="close-modal-btn">✖</button>
+      </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>

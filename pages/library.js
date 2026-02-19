@@ -6,6 +6,7 @@ import { getFriends } from "../helpers/getFriends.js";
 import { getMatchedLibrary } from "../helpers/getMatchedLibrary.js";
 import { getFriendsDisplayName } from "../helpers/getFriendsDisplayName.js";
 import { getFriendsForUI } from "../helpers/getFriendsCode.js";
+import { fetchMovieFull } from "../api/movies.js";
 
 export async function initLibrary() {
   const user = await getAuthState();
@@ -97,20 +98,40 @@ function renderCount(dataOptional) {
 
 function addListeners() {
   const container = document.querySelector("#my-library-grid");
-  if (!container) return;
+  if (container) {
+    container.addEventListener("click", async (e) => {
+      if (!e.target.matches(".delete-library-card")) return;
 
-  container.addEventListener("click", async (e) => {
-    if (!e.target.matches(".delete-library-card")) return;
+      const card = e.target.closest(".library-card");
+      if (!card) return;
 
-    const card = e.target.closest(".library-card");
-    if (!card) return;
+      let movieId = card.dataset.movieId;
+      await deleteYesVote(movieId);
 
-    let movieId = card.dataset.movieId;
-    await deleteYesVote(movieId);
+      card.remove();
+      renderCount();
+    });
+  }
 
-    card.remove();
-    renderCount();
-  });
+  const main = document.getElementById("library-main");
+  if (main) {
+    main.addEventListener("click", async (e) => {
+      const card = e.target.closest(".library-card");
+      if (!card) return;
+
+      if (e.target.closest(".delete-library-card")) return;
+      if (e.target.closest(".rail-btn")) return;
+
+      const movieID = card.dataset.movieId;
+      document.getElementById("movie-modal").classList.add("is-open");
+      await renderModal(movieID);
+    });
+  }
+  const closeBtn = document.getElementById("close-modal-btn");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeModal);
+  }
+
   document.querySelectorAll(".rail").forEach(setupRail);
   document.querySelectorAll(".match-wrapper").forEach(setupRail);
 }
@@ -219,4 +240,115 @@ function setupRail(railEl) {
   window.addEventListener("resize", updateButtons);
 
   updateButtons();
+}
+
+async function renderModal(movieId) {
+  const $ = (id) => document.getElementById(id);
+  const path = "https://image.tmdb.org/t/p/w500/";
+  const DOM = {
+    trailer: $("modal-trailer"),
+    poster: $("modal-poster"),
+    title: $("modal-title"),
+    release: $("modal-year"),
+    overview: $("modal-desc"),
+    genres: $("modal-genres"),
+    actors: $("modal-actors"),
+    runtime: $("modal-runtime"),
+    stream: $("modal-stream"),
+    rating: $("modal-rating"),
+    tagline: $("modal-tagline"),
+    voteCount: $("modal-vote-count"),
+    backdrop: $("modal-backdrop"),
+    closeBtn: $("close-modal-btn"),
+  };
+  const movie = await fetchMovieFull(movieId);
+  if (!movie) return;
+  console.log(movie);
+  DOM.title.textContent = movie.release
+    ? `${movie.title} (${movie.release.slice(0, 4)})`
+    : movie.title;
+
+  DOM.genres.innerHTML = "";
+
+  movie.genres.forEach((el) => {
+    const genre = document.createElement("p");
+    genre.textContent = el.name;
+
+    DOM.genres.append(genre);
+  });
+
+  DOM.rating.textContent = `⭐ ${movie.rating.toFixed(1)}`;
+  // DOM.voteCount.textContent = ` /10 (${movie.vote_count} votes)`;
+  DOM.voteCount.textContent = ``;
+
+  DOM.runtime.textContent = `🕑 ${Math.floor(movie.runtime / 60)}h ${
+    movie.runtime % 60
+  }m`;
+  DOM.overview.textContent = movie.overview;
+  DOM.trailer.src = `${movie.video}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0`;
+
+  DOM.stream.innerHTML = "";
+
+  const providers = [
+    ...(movie.providers?.SE?.flatrate ?? []).map((p) => ({
+      ...p,
+      region: "SE",
+    })),
+    ...(movie.providers?.SE?.free ?? []).map((p) => ({ ...p, region: "SE" })),
+  ];
+
+  const sorted = [...providers].sort(
+    (a, b) => a.display_priority - b.display_priority,
+  );
+
+  if (sorted.length === 0) {
+    DOM.stream.textContent = "No streaming found 🦜🏴‍☠️";
+    return;
+  }
+
+  sorted.forEach((p) => {
+    const container = document.createElement("div");
+    container.className = "provider-container";
+
+    const providerCont = document.createElement("div");
+    providerCont.classList.add("logo-cont");
+
+    const provider = document.createElement("p");
+
+    const providerMap = {
+      "Amazon Prime Video": "Amazon Prime",
+      "Apple TV Amazon Channel": "Apple TV+",
+    };
+
+    let name = providerMap[p.provider_name] || p.provider_name;
+
+    provider.textContent = name;
+
+    const logo = document.createElement("img");
+
+    const flag = document.createElement("img");
+    flag.id = "modal-flag";
+    flag.src = `/assets/images/se.svg`;
+
+    if (p.logo_path) {
+      logo.src = path + p.logo_path;
+    }
+
+    providerCont.append(logo, provider);
+    container.append(flag, providerCont);
+    DOM.stream.append(container);
+  });
+
+  // GB: {
+  //   flatrate: [...(providersData?.results?.GB?.flatrate ?? [])],
+  //   free: [...(providersData?.results?.GB?.free ?? [])],
+  // },
+}
+
+function closeModal() {
+  const modal = document.getElementById("movie-modal");
+  const trailer = document.getElementById("modal-trailer");
+
+  modal.classList.remove("is-open");
+  if (trailer) trailer.src = "";
 }
