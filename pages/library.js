@@ -112,6 +112,7 @@ function addListeners() {
     renderCount();
   });
   document.querySelectorAll(".rail").forEach(setupRail);
+  document.querySelectorAll(".match-wrapper").forEach(setupRail);
 }
 
 async function renderMatchedLibrary(matches) {
