@@ -1,7 +1,6 @@
-export const API_BASE =
-  location.hostname === "localhost"
-    ? "http://localhost:4000"
-    : "https://api.lolgiss.com";
+const isLocalhost =
+  location.hostname === "localhost" || location.hostname === "127.0.0.1";
 
-export const API = `${API_BASE}/api/flinder`;
-// export const API = "http://localhost:3000/api/flinder";
+export const API = isLocalhost
+  ? "http://localhost:4000/api"
+  : "https://api.lolgiss.com/api/flinder";

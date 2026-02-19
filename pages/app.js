@@ -151,6 +151,20 @@ function loadListeners() {
       closeModal();
     }
   });
+
+  document.addEventListener("keydown", async (e) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") e.preventDefault();
+
+    if (e.key === "ArrowLeft") {
+      await hub.handleSwipe("no");
+      renderMovie();
+    }
+    if (e.key === "ArrowRight") {
+      await hub.handleSwipe("yes");
+      renderMovie();
+    }
+  });
+
   document
     .getElementById("close-modal-btn")
     .addEventListener("click", closeModal);

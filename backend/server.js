@@ -36,5 +36,5 @@ const movieFullRoute = require("./routes/movieFull");
 app.use("/api/movieFull", movieFullRoute);
 
 app.listen(port, () => {
-  console.log(`Listening at http://localhost${port}`);
+  console.log(`Listening at http://localhost:${port}`);
 });
