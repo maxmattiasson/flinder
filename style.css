@@ -385,7 +385,7 @@ header nav a:active {
 .release-year-app {
   position: absolute;
   user-select: none;
-
+  z-index: 2;
   font-family: "Rubik Doodle Shadow", system-ui;
   font-weight: 400;
   font-style: normal;
@@ -1168,4 +1168,66 @@ footer {
   #movie-modal {
     max-width: 750px;
   }
+  .library-card:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+  .library-card::after {
+    content: "View details";
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    opacity: 0;
+    font-size: 12px;
+    transition: opacity 0.2s ease;
+  }
+
+  .library-card:hover::after {
+    opacity: 1;
+  }
+
+  .poster-cont {
+    position: relative;
+    transition:
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
+    border-radius: 12px; /* if poster rounded */
+  }
+
+  .poster-cont:hover {
+    box-shadow:
+      0 0 25px rgba(255, 255, 255, 0.1),
+      0 0 50px rgba(255, 255, 255, 0.05);
+  }
+  .yes-btn,
+  .no-btn {
+    transition:
+      box-shadow 0.1s ease,
+      transform 0.1s ease;
+  }
+
+  .yes-btn:hover,
+  .no-btn:hover {
+    transform: scale(1.05);
+    box-shadow:
+      0 0 25px rgba(255, 255, 255, 0.1),
+      0 0 50px rgba(255, 255, 255, 0.05);
+  }
+  .category-app:hover {
+    transform: translateY(-1px);
+  }
+  /* .poster-cont::after {
+    content: "View more";
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    opacity: 0;
+    font-size: 12px;
+    transition: opacity 0.2s ease;
+  }
+
+  .poster-cont:hover::after {
+    opacity: 1;
+  } */
 }
