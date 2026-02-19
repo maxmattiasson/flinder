@@ -505,6 +505,9 @@ header nav a:active {
   scale: 1.1;
   background-color: rgb(29, 29, 29);
 }
+.rail-btn {
+  display: none;
+}
 .hidden {
   display: none;
 }
@@ -1088,4 +1091,71 @@ footer {
 }
 
 @media (min-width: 600px) {
+  /* Library */
+  .rail,
+  .match-wrapper {
+    position: relative;
+  }
+  .library-grid {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 8px 48px;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    scroll-snap-type: x mandatory;
+  }
+
+  .library-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .library-grid > * {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+  .rail-btn {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    font-size: 2rem;
+
+    width: 60px;
+    height: 180px;
+
+    border: 0;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.45);
+    color: white;
+
+    cursor: pointer;
+    opacity: 0;
+    transition:
+      opacity 150ms ease,
+      background 150ms ease;
+  }
+  .rail-btn-left {
+    left: 8px;
+  }
+  .rail-btn-right {
+    right: 8px;
+  }
+  .rail:hover .rail-btn {
+    opacity: 1;
+  }
+  .match-wrapper:hover .rail-btn {
+    opacity: 1;
+  }
+  .match-wrapper .rail-btn {
+    top: 65%;
+    transform: translateY(-65%);
+  }
+  .rail-btn:hover {
+    background: rgba(0, 0, 0, 0.65);
+  }
 }

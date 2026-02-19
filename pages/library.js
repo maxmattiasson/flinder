@@ -39,6 +39,17 @@ function renderLibrary(data) {
   const cont = document.querySelector("main");
   const path = "https://image.tmdb.org/t/p/w500/";
 
+  const wrapper = document.createElement("div");
+  wrapper.classList.add("rail");
+
+  const railBtnLeft = document.createElement("button");
+  railBtnLeft.textContent = "<";
+  railBtnLeft.classList.add("rail-btn", "rail-btn-left");
+
+  const railBtnRight = document.createElement("button");
+  railBtnRight.textContent = ">";
+  railBtnRight.classList.add("rail-btn", "rail-btn-right");
+
   const movieCont = document.createElement("div");
   movieCont.classList.add("library-grid");
   movieCont.id = "my-library-grid";
@@ -65,7 +76,8 @@ function renderLibrary(data) {
     card.append(deleteBtn, posterCont);
     movieCont.append(card);
   });
-  cont.append(movieCont);
+  wrapper.append(railBtnLeft, movieCont, railBtnRight);
+  cont.append(wrapper);
 }
 function renderCount(dataOptional) {
   const cont = document.querySelector("#library-h3");
@@ -99,7 +111,9 @@ function addListeners() {
     card.remove();
     renderCount();
   });
+  document.querySelectorAll(".rail").forEach(setupRail);
 }
+
 async function renderMatchedLibrary(matches) {
   document.querySelector("#matched-library")?.remove();
 
@@ -119,6 +133,14 @@ async function renderMatchedLibrary(matches) {
   matches.forEach((match) => {
     const wrapper = document.createElement("div");
     wrapper.classList.add("match-wrapper");
+
+    const railBtnLeft = document.createElement("button");
+    railBtnLeft.textContent = "<";
+    railBtnLeft.classList.add("rail-btn", "rail-btn-left");
+
+    const railBtnRight = document.createElement("button");
+    railBtnRight.textContent = ">";
+    railBtnRight.classList.add("rail-btn", "rail-btn-right");
 
     const container = document.createElement("div");
     container.classList.add("library-grid");
@@ -140,7 +162,7 @@ async function renderMatchedLibrary(matches) {
       card.append(posterCont);
       container.append(card);
     }
-    wrapper.append(friendTitle, container);
+    wrapper.append(friendTitle, container, railBtnLeft, railBtnRight);
     frag.append(wrapper);
   });
   section.append(frag);
@@ -166,4 +188,34 @@ function groupMatchesByPartner(matches) {
   }
 
   return Array.from(groups.values());
+}
+// Scroll on desktop
+function setupRail(railEl) {
+  const track = railEl.querySelector(".library-grid");
+  const btnLeft = railEl.querySelector(".rail-btn-left");
+  const btnRight = railEl.querySelector(".rail-btn-right");
+
+  const scrollAmount = () => Math.floor(track.clientWidth * 0.85);
+
+  function updateButtons() {
+    const maxScrollLeft = track.scrollWidth - track.clientWidth;
+    const atLeft = track.scrollLeft <= 0;
+    const atRight = track.scrollLeft >= maxScrollLeft - 1;
+
+    btnLeft.style.display = atLeft ? "none" : "";
+    btnRight.style.display = atRight ? "none" : "";
+  }
+
+  btnLeft.addEventListener("click", () => {
+    track.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+  });
+
+  btnRight.addEventListener("click", () => {
+    track.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+  });
+
+  track.addEventListener("scroll", updateButtons, { passive: true });
+  window.addEventListener("resize", updateButtons);
+
+  updateButtons();
 }
