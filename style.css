@@ -1225,6 +1225,9 @@ footer img {
   .category-app:hover {
     transform: translateY(-1px);
   }
+  .rail:hover .library-grid {
+    scroll-snap-type: none;
+  }
   /* .poster-cont::after {
     content: "View more";
     position: absolute;
