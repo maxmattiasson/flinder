@@ -59,6 +59,10 @@ select {
 }
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+body {
+  overflow-x: hidden;
 }
 /* Landing page */
 main {
@@ -1040,12 +1044,13 @@ header nav a:active {
   cursor: pointer;
 }
 footer {
-  font-size: 0.6rem;
-  text-align: center;
-  color: var(--txt-muted);
-  bottom: 10px;
   position: fixed;
-  width: 100%;
+  left: 0;
+  right: 0; /* pins it to viewport edges */
+  bottom: 10px;
+  text-align: center;
+  font-size: 0.6rem;
+  color: var(--txt-muted);
 }
 
 /* Media queries */
