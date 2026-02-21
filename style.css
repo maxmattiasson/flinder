@@ -1046,11 +1046,14 @@ header nav a:active {
 footer {
   position: fixed;
   left: 0;
-  right: 0; /* pins it to viewport edges */
+  right: 0;
   bottom: 10px;
   text-align: center;
   font-size: 0.6rem;
   color: var(--txt-muted);
+}
+footer img {
+  margin-bottom: 2px;
 }
 
 /* Media queries */
