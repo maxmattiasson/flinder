@@ -28,6 +28,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   min-height: 100vh;
   font-family:
@@ -1252,4 +1253,62 @@ footer img {
   #movie-modal {
     max-width: 550px;
   }
+}
+@view-transition {
+  navigation: auto;
+}
+
+.poster-cont {
+  position: relative;
+}
+
+.stamp {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+
+  opacity: 0;
+  transform: scale(0.9) rotate(-10deg);
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease;
+}
+
+.stamp.show {
+  opacity: 1;
+  transform: scale(1.06) rotate(-10deg);
+}
+
+.stamp .pill {
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.poster-cont {
+  transition:
+    transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 260ms ease,
+    filter 260ms ease;
+  will-change: transform, opacity;
+}
+
+.poster-cont.is-leaving {
+  opacity: 0;
+  filter: blur(1px);
+}
+
+.poster-cont.is-leaving.yes {
+  transform: translateX(60px) rotate(6deg) scale(0.98);
+}
+
+.poster-cont.is-leaving.no {
+  transform: translateX(-60px) rotate(-6deg) scale(0.98);
 }

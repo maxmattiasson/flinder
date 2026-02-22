@@ -24,6 +24,37 @@ export async function initApp() {
   loadListeners();
 }
 
+function ensureStamp(posterCont) {
+  let stamp = posterCont.querySelector(".stamp");
+  if (stamp) return stamp;
+
+  stamp = document.createElement("div");
+  stamp.className = "stamp";
+  stamp.setAttribute("aria-hidden", "true");
+
+  const pill = document.createElement("div");
+  pill.className = "pill";
+
+  stamp.appendChild(pill);
+  posterCont.appendChild(stamp);
+
+  return stamp;
+}
+
+function showStampOnPoster(posterCont, kind) {
+  const stamp = ensureStamp(posterCont);
+  const pill = stamp.querySelector(".pill");
+  pill.textContent = kind === "yes" ? "YES" : "NOPE";
+
+  // restart animation even on rapid clicks
+  stamp.classList.remove("show");
+  void stamp.offsetWidth; // force reflow
+  stamp.classList.add("show");
+
+  clearTimeout(stamp._t);
+  stamp._t = setTimeout(() => stamp.classList.remove("show"), 220);
+}
+
 function renderMovie() {
   const path = "https://image.tmdb.org/t/p/w500/";
   const cont = document.querySelector("#movie-cont");
@@ -67,7 +98,7 @@ function renderMovie() {
 
   posterCont.append(poster);
   cont.append(release, posterCont, genreCont, rating);
-  renderButtons();
+  renderButtons(posterCont);
 }
 function renderButtons() {
   const yesBtn = document.createElement("button");
@@ -84,11 +115,22 @@ function renderButtons() {
 
   yesBtn.addEventListener("click", async (e) => {
     e.stopPropagation();
-    await hub.handleSwipe("yes");
+
+    showStampOnPoster(posterCont, "yes");
+    posterCont.classList.add("is-leaving", "yes");
+    const minDelay = await new Promise((r) => setTimeout(r, 230));
+    const swipe = await hub.handleSwipe("yes");
+
+    await Promise.all([minDelay, swipe]);
     renderMovie();
   });
   noBtn.addEventListener("click", async (e) => {
     e.stopPropagation();
+
+    showStampOnPoster(posterCont, "no");
+    posterCont.classList.add("is-leaving", "no");
+    await new Promise((r) => setTimeout(r, 230));
+
     await hub.handleSwipe("no");
     renderMovie();
   });
