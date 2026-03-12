@@ -21,7 +21,7 @@ const isPage = (name) => page === name || page === `${name}.html`;
 if (isPage("signup")) {
   initSignup();
 } else if (isPage("index")) {
-  if (user) window.location.href = "/app";
+  if (user) window.location.href = "/app.html";
   else initIndex();
   initLogin();
 } else if (isPage("app")) {
@@ -29,7 +29,8 @@ if (isPage("signup")) {
 } else if (isPage("categories")) {
   initCategories();
   const btn = document.querySelector("#categories-start");
-  if (btn) btn.addEventListener("click", () => (window.location.href = "/app"));
+  if (btn)
+    btn.addEventListener("click", () => (window.location.href = "/app.html"));
 } else if (isPage("profile")) {
   initProfile();
 } else if (isPage("library")) {
