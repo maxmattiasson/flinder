@@ -7,6 +7,7 @@ import { MovieHub } from "../hub/MovieHub.js";
 import { getActiveCategory } from "./categories.js";
 import { renderRating } from "../utils/appRender/renderRating.js";
 import { renderGenre } from "../utils/appRender/renderGenre.js";
+import { icons } from "../assets/svg/svgImport.js";
 
 let hub;
 let genreList = [];
@@ -107,7 +108,8 @@ function renderButtons() {
   yesBtn.classList.add("yes-btn");
   noBtn.classList.add("no-btn");
 
-  yesBtn.textContent = "❤️‍🔥";
+  yesBtn.innerHTML = icons.heart;
+
   noBtn.textContent = "❌";
 
   yesBtn.classList.add("no-modal");
