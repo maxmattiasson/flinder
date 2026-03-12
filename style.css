@@ -351,6 +351,11 @@ header nav a:active {
   width: 48px;
   height: 48px;
 }
+.no-btn svg {
+  color: red;
+  width: 48px;
+  height: 48px;
+}
 #movie-cont .yes-btn {
   right: 30px;
 }

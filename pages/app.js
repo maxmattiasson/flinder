@@ -109,8 +109,8 @@ function renderButtons() {
   noBtn.classList.add("no-btn");
 
   yesBtn.innerHTML = icons.heart;
-
-  noBtn.textContent = "❌";
+  noBtn.innerHTML = icons.cross;
+  // noBtn.textContent = "❌";
 
   yesBtn.classList.add("no-modal");
   noBtn.classList.add("no-modal");
