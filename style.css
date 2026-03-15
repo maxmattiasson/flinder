@@ -353,11 +353,13 @@ header nav a:active {
   color: var(--yes-color);
   width: 48px;
   height: 48px;
+  pointer-events: none;
 }
 .no-btn svg {
   color: var(--no-color);
   width: 48px;
   height: 48px;
+  pointer-events: none;
 }
 .yes-btn.loading {
   opacity: 0.5;
@@ -744,6 +746,7 @@ header nav a:active {
 #modal-no svg {
   width: 32px;
   height: 32px;
+  pointer-events: none;
 }
 #modal-yes {
   justify-self: start;
@@ -1316,19 +1319,27 @@ footer img {
 
 .stamp .pill {
   padding: 14px 18px;
-  border-radius: 999px;
+  border-radius: 30px;
   font-weight: 800;
-  font-family: "Rubik Doodle Shadow";
+  font-family: "Rubik Doodle Shadow", system-ui;
   font-size: 4rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+.stamp-yes .pill {
+  border: 10px solid rgba(12, 183, 26, 1);
+  background: rgba(205, 255, 198, 0.15);
+}
+.stamp-no .pill {
+  border: 10px solid rgba(183, 12, 12, 1);
+  background: rgba(255, 193, 193, 0.15);
 }
 .stamp-yes {
   padding: 14px 18px;
   border-radius: 999px;
   color: rgb(23, 171, 30);
-  border: 2px solid rgba(12, 183, 26, 0.35);
-  background: rgba(255, 255, 255, 0.15);
+  /* border: 2px solid rgba(12, 183, 26, 0.35);
+  background: rgba(205, 255, 198, 0.15); */
   font-weight: 800;
   letter-spacing: 0.08em;
   transform: scale(1.06) rotate(10deg);
@@ -1338,8 +1349,8 @@ footer img {
   padding: 14px 18px;
   border-radius: 999px;
   color: red;
-  border: 2px solid rgba(183, 12, 12, 0.35);
-  background: rgba(255, 255, 255, 0.15);
+  /* border: 2px solid rgba(183, 12, 12, 0.35);
+  background: rgba(255, 193, 193, 0.15); */
   font-weight: 800;
   letter-spacing: 0.08em;
   transform: scale(1.06) rotate(-10deg);
