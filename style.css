@@ -20,6 +20,9 @@
 
   --inset-dark: inset 6px 6px 10px rgba(0, 0, 0, 0.6);
   --inset-light: inset -6px -6px 10px rgba(255, 255, 255, 0.06);
+
+  --yes-color: #42ce42;
+  --no-color: #ff0000;
 }
 
 /* General reset */
@@ -347,12 +350,12 @@ header nav a:active {
   cursor: pointer;
 }
 .yes-btn svg {
-  color: rgb(66, 206, 66);
+  color: var(--yes-color);
   width: 48px;
   height: 48px;
 }
 .no-btn svg {
-  color: red;
+  color: var(--no-color);
   width: 48px;
   height: 48px;
 }
@@ -725,12 +728,22 @@ header nav a:active {
   border-radius: 100%;
   font-size: 1.6rem;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#modal-yes svg,
+#modal-no svg {
+  width: 32px;
+  height: 32px;
 }
 #modal-yes {
   justify-self: start;
+  color: var(--yes-color);
 }
 #modal-no {
   justify-self: end;
+  color: var(--no-color);
 }
 /* Profile page */
 .social-page {
