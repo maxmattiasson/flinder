@@ -359,6 +359,14 @@ header nav a:active {
   width: 48px;
   height: 48px;
 }
+.yes-btn.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.no-btn.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
 #movie-cont .yes-btn {
   right: 30px;
 }
@@ -1304,10 +1312,17 @@ footer img {
 
 .stamp.show {
   opacity: 1;
-  transform: scale(1.06) rotate(-10deg);
 }
 
 .stamp .pill {
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.stamp-yes {
   padding: 14px 18px;
   border-radius: 999px;
   color: rgb(23, 171, 30);
@@ -1315,5 +1330,17 @@ footer img {
   background: rgba(255, 255, 255, 0.35);
   font-weight: 800;
   letter-spacing: 0.08em;
+  transform: scale(1.06) rotate(10deg);
+  text-transform: uppercase;
+}
+.stamp-no {
+  padding: 14px 18px;
+  border-radius: 999px;
+  color: red;
+  border: 2px solid rgba(183, 12, 12, 0.35);
+  background: rgba(255, 255, 255, 0.35);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  transform: scale(1.06) rotate(-10deg);
   text-transform: uppercase;
 }

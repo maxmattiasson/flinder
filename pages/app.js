@@ -46,14 +46,19 @@ function showStampOnPoster(posterCont, kind) {
   const stamp = ensureStamp(posterCont);
   const pill = stamp.querySelector(".pill");
   pill.textContent = kind === "yes" ? "YES" : "NOPE";
-
+  if (kind === "yes") {
+    stamp.classList.add("stamp-yes");
+  } else {
+    stamp.classList.add("stamp-no");
+  }
+  // stamp.classList.add = kind === "yes" ? "stamp-yes" : "stamp-no";
   // restart animation even on rapid clicks
   stamp.classList.remove("show");
   void stamp.offsetWidth; // force reflow
   stamp.classList.add("show");
 
   clearTimeout(stamp._t);
-  stamp._t = setTimeout(() => stamp.classList.remove("show"), 220);
+  stamp._t = setTimeout(() => stamp.classList.remove("show"), 800);
 }
 
 function renderMovie() {
@@ -120,21 +125,43 @@ function renderButtons() {
 
     showStampOnPoster(posterCont, "yes");
     posterCont.classList.add("is-leaving", "yes");
-    const minDelay = await new Promise((r) => setTimeout(r, 230));
-    const swipe = await hub.handleSwipe("yes");
 
-    await Promise.all([minDelay, swipe]);
-    renderMovie();
+    yesBtn.disabled = true;
+    yesBtn.classList.add("loading");
+    noBtn.disabled = true;
+    noBtn.classList.add("loading");
+
+    try {
+      const minDelay = new Promise((r) => setTimeout(r, 230));
+      const swipe = hub.handleSwipe("yes");
+
+      await Promise.all([minDelay, swipe]);
+
+      renderMovie();
+    } catch (e) {
+      console.log(e);
+    }
   });
   noBtn.addEventListener("click", async (e) => {
     e.stopPropagation();
 
     showStampOnPoster(posterCont, "no");
     posterCont.classList.add("is-leaving", "no");
-    await new Promise((r) => setTimeout(r, 230));
 
-    await hub.handleSwipe("no");
-    renderMovie();
+    noBtn.disabled = true;
+    noBtn.classList.add("loading");
+    yesBtn.disabled = true;
+    yesBtn.classList.add("loading");
+
+    try {
+      const minDelay = new Promise((r) => setTimeout(r, 230));
+      const swipe = hub.handleSwipe("no");
+
+      await Promise.all([minDelay, swipe]);
+      renderMovie();
+    } catch (e) {
+      console.log(e);
+    }
   });
 
   posterCont.append(noBtn);
