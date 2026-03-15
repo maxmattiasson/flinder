@@ -8,6 +8,7 @@ import { getActiveCategory } from "./categories.js";
 import { renderRating } from "../utils/appRender/renderRating.js";
 import { renderGenre } from "../utils/appRender/renderGenre.js";
 import { icons } from "../assets/svg/svgImport.js";
+import createExpandable from "../utils/appRender/createExpandable.js";
 
 let hub;
 let genreList = [];
@@ -110,6 +111,7 @@ function renderButtons() {
   const yesBtn = document.createElement("button");
   const noBtn = document.createElement("button");
   const posterCont = document.querySelector("#movie-cont");
+  const realPosterCont = document.querySelector(".poster-cont");
   yesBtn.classList.add("yes-btn");
   noBtn.classList.add("no-btn");
 
@@ -123,7 +125,7 @@ function renderButtons() {
   yesBtn.addEventListener("click", async (e) => {
     e.stopPropagation();
 
-    showStampOnPoster(posterCont, "yes");
+    showStampOnPoster(realPosterCont, "yes");
     posterCont.classList.add("is-leaving", "yes");
 
     yesBtn.disabled = true;
@@ -145,8 +147,7 @@ function renderButtons() {
   noBtn.addEventListener("click", async (e) => {
     e.stopPropagation();
 
-    showStampOnPoster(posterCont, "no");
-    posterCont.classList.add("is-leaving", "no");
+    showStampOnPoster(realPosterCont, "no");
 
     noBtn.disabled = true;
     noBtn.classList.add("loading");
@@ -293,7 +294,9 @@ async function renderModal(movieId) {
   DOM.runtime.textContent = `🕑 ${Math.floor(movie.runtime / 60)}h ${
     movie.runtime % 60
   }m`;
+
   DOM.overview.textContent = movie.overview;
+
   DOM.trailer.src = `${movie.video}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0`;
 
   DOM.stream.innerHTML = "";
