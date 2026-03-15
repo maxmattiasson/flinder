@@ -66,6 +66,12 @@ export class MovieHub {
     let movie = this.getCurrentMovie();
     if (!movie) return null;
 
+    renderMatchToast("Inception", [
+      { display_name: "Alice", friend_code: "ABC123" },
+      { display_name: "Bob", friend_code: "XYZ789" },
+      { display_name: "Carol", friend_code: "DEF456" },
+    ]);
+
     await this.saveToDB(movie, vote);
 
     this.currentIndex++;

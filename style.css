@@ -471,21 +471,48 @@ header nav a:active {
   display: block;
   position: absolute;
   top: 10px;
-  max-width: 320px;
-  padding: 10px;
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  font-weight: 600;
+
+  width: 320px;
+  border: none;
+
+  font-weight: 400;
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(8px);
-  border: 2px solid rgba(255, 255, 255, 0.15);
   z-index: 999;
+
+  opacity: 0;
+  pointer-events: auto;
+  transform: translateY(-120%);
+  transition:
+    opacity 0.25s ease,
+    transform 0.5s ease;
+  text-align: center;
 }
 #match-toast.toast-show {
   display: block;
+  padding: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+
+  opacity: 1;
+  transform: translateY(0);
 }
+#match-toast div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+#match-toast span {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
 /* LIBRARY CSS */
 #library-main {
   align-items: stretch;
