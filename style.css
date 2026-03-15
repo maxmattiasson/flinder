@@ -333,7 +333,7 @@ header nav a:active {
 }
 
 #movie-cont button {
-  border: 2px rgba(255, 255, 255, 0.274) solid;
+  border: 2px rgba(255, 255, 255, 0.15) solid;
   background-color: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(8px);
 
@@ -470,6 +470,18 @@ header nav a:active {
 #match-toast {
   display: block;
   position: absolute;
+  top: 10px;
+  max-width: 320px;
+  padding: 10px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  z-index: 999;
 }
 #match-toast.toast-show {
   display: block;
@@ -1050,6 +1062,7 @@ header nav a:active {
   border: none;
   color: var(--bg);
   font-weight: 600;
+  font-size: 1.2rem;
   padding: 20px;
   border-radius: 30px;
   background-color: rgba(255, 255, 255, 0.778);
@@ -1345,7 +1358,7 @@ footer img {
   background: rgba(205, 255, 198, 0.15); */
   font-weight: 800;
   letter-spacing: 0.08em;
-  transform: scale(1.06) rotate(10deg);
+  transform: scale(1.06) rotate(-10deg);
   text-transform: uppercase;
 }
 .stamp-no {
@@ -1356,6 +1369,6 @@ footer img {
   background: rgba(255, 193, 193, 0.15); */
   font-weight: 800;
   letter-spacing: 0.08em;
-  transform: scale(1.06) rotate(-10deg);
+  transform: scale(1.06) rotate(10deg);
   text-transform: uppercase;
 }
