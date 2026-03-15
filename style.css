@@ -748,6 +748,7 @@ header nav a:active {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border: 2px solid var(--txt-muted);
 }
 #display-name-cont {
   display: flex;
@@ -812,6 +813,7 @@ header nav a:active {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border: 2px solid var(--txt-muted);
 }
 #friends-list {
   display: flex;
@@ -820,6 +822,7 @@ header nav a:active {
   gap: 8px;
   max-height: 200px;
   padding-right: 4px;
+  position: relative;
 }
 /* #friends-list::after {
   content: "";
@@ -833,7 +836,9 @@ header nav a:active {
   content: "";
   display: block;
   height: 2px;
-  margin-top: -40px;
+  width: 100%;
+  position: absolute;
+  top: 32px;
   background: linear-gradient(
     to right,
     transparent,
