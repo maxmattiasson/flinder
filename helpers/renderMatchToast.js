@@ -6,7 +6,7 @@ export function renderMatchToast(movieTitle, matches) {
   const displayName =
     first.display_name?.trim() || first.friend_code?.trim() || "a friend";
 
-  toast.style.display = "block";
+  toast.classList.add("toast-show");
 
   if (matches.length === 1) {
     toast.textContent = `Match on ${movieTitle} with ${displayName}!`;

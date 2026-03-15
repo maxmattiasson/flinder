@@ -8,3 +8,5 @@ loading state?
 cache?
 redirects?
 view transitions
+tooltip on mobile maybe desktop that tells you you can click the poster
+toast render

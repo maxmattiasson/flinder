@@ -468,9 +468,12 @@ header nav a:active {
 }
 
 #match-toast {
-  display: none;
+  display: block;
+  position: absolute;
 }
-
+#match-toast.toast-show {
+  display: block;
+}
 /* LIBRARY CSS */
 #library-main {
   align-items: stretch;
@@ -1327,11 +1330,11 @@ footer img {
   text-transform: uppercase;
 }
 .stamp-yes .pill {
-  border: 10px solid rgba(12, 183, 26, 1);
+  border: 6px solid rgba(12, 183, 26, 1);
   background: rgba(205, 255, 198, 0.15);
 }
 .stamp-no .pill {
-  border: 10px solid rgba(183, 12, 12, 1);
+  border: 6px solid rgba(183, 12, 12, 1);
   background: rgba(255, 193, 193, 0.15);
 }
 .stamp-yes {
