@@ -8,6 +8,7 @@ import { getActiveCategory } from "./categories.js";
 import { renderRating } from "../utils/appRender/renderRating.js";
 import { renderGenre } from "../utils/appRender/renderGenre.js";
 import { icons } from "../assets/svg/svgImport.js";
+import { initHelpOverlay } from "../utils/helpOverlay.js";
 import createExpandable from "../utils/appRender/createExpandable.js";
 
 let hub;
@@ -24,6 +25,7 @@ export async function initApp() {
   renderMovie();
   renderCategory(category);
   loadListeners();
+  initHelpOverlay();
 }
 
 function ensureStamp(posterCont) {

@@ -17,6 +17,7 @@
       <nav>
         <a id="library-nav" href="/library.html">Library</a>
         <div id="auth-state"></div>
+        <button id="help-btn">?</button>
       </nav>
     </header>
     <main>
@@ -65,6 +66,27 @@
             />
           </svg>
         </button>
+      </div>
+
+      <div id="help-overlay" class="help-overlay hidden">
+        <div class="help-box">
+          <button id="help-close">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path
+                d="M6 6L18 18M6 18L18 6"
+                stroke="currentColor"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+          <h2>How it works</h2>
+          <p>💚 Save movies you like</p>
+          <p>❌ Skip movies you do not like</p>
+          <p>🎬 Click the poster to see more details</p>
+          <p>🔍 Change category to discover different movies</p>
+          <p>🧑‍❤️‍👩 Add friends to find movies you both like</p>
+        </div>
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>

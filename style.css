@@ -88,7 +88,7 @@ dialog {
 header {
   margin: auto;
   padding: 14px 18px;
-  height: 10vh;
+  height: 8vh;
 
   display: flex;
   align-items: center;
@@ -455,7 +455,6 @@ header nav a:active {
   justify-content: center;
   gap: 10px;
   padding: 10px;
-  margin-top: 8px;
   user-select: none;
 }
 .genre-cont p {
@@ -467,6 +466,53 @@ header nav a:active {
   padding: 2px 12px;
 }
 
+/* Help Overlay */
+#help-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+#help-overlay.hidden {
+  display: none;
+}
+
+.help-box {
+  width: min(90vw, 420px);
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.65);
+  position: relative;
+
+  color: var(--txt-muted);
+  text-align: center;
+}
+#help-btn {
+  cursor: pointer;
+  padding: 4px 7px;
+  border-radius: 50px;
+  background: rgb(0, 0, 0, 0.3);
+  font-size: 14px;
+  color: var(--txt-muted);
+
+  border: 2px solid rgba(0, 0, 0, 0.15);
+}
+#help-btn:hover {
+  transform: translateY(-1px);
+}
+#help-close {
+  border-radius: 10px;
+}
+#help-close:hover {
+  background-color: var(--txt-muted);
+  color: black;
+}
 #match-toast {
   display: block;
   position: absolute;
@@ -647,7 +693,8 @@ header nav a:active {
   border-radius: 20px;
   border: 2px solid rgba(0, 0, 0, 0.15);
 }
-#close-modal-btn {
+#close-modal-btn,
+#help-close {
   position: absolute;
   top: 0px;
   right: 10px;
